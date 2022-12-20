@@ -1,0 +1,26 @@
+server:
+  port: 4545
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher #issue with swagger & actuator
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: [ "env", "health", "info" ]
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_tinder
+    username: root
+    password: 12345qwertQWERT
+    driver-class-name: com.mysql.jdbc.Driver
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+#
+#swagger:
+#  default-include-pattern: /.*
+#  title: Adp Iamas API
+#  description: Adp Iamas documentation
+#  basePackage: "az.kapitalbank.integration"

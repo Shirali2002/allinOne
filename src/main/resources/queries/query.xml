@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>All In One Queries</comment>
+
+    <entry key="allinone.query.findUserById">
+        <![CDATA[
+            SELECT id,
+                   name,
+                   surname,
+                   username,
+                   password,
+                   role
+              FROM all_in_one.user
+             WHERE id = :id
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findUserByUsername">
+        <![CDATA[
+            SELECT id,
+                   name,
+                   surname,
+                   username,
+                   password,
+                   role
+              FROM all_in_one.user
+             WHERE username = :username
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.addUser">
+        <![CDATA[
+            INSERT
+              INTO all_in_one.user
+                   (username,
+                   name,
+                   surname,
+                   password,
+                   role)
+            VALUES (:username,
+                   :name,
+                   :surname,
+                   :password,
+                   :role);
+        ]]>
+    </entry>
+
+</properties>
