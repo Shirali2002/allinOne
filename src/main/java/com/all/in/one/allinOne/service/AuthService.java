@@ -3,17 +3,18 @@ package com.all.in.one.allinOne.service;
 import com.all.in.one.allinOne.config.properties.SecurityConstants;
 import com.all.in.one.allinOne.dto.request.RegisterRequest;
 import com.all.in.one.allinOne.dto.request.ResetPasswordRequest;
+import com.all.in.one.allinOne.dto.request.VerifyResetPasswordRequest;
+import com.all.in.one.allinOne.dto.request.VerifyUserRequest;
 import com.all.in.one.allinOne.entity.User;
 import com.all.in.one.allinOne.error.exception.DuplicateUsernameException;
 import com.all.in.one.allinOne.error.exception.EmailProviderException;
 import com.all.in.one.allinOne.error.exception.PasswordsNotMatchedException;
 import com.all.in.one.allinOne.error.exception.UserNotFoundException;
+import com.all.in.one.allinOne.error.exception.VerificationFailedException;
 import com.all.in.one.allinOne.util.EmailProvider;
-import com.all.in.one.allinOne.util.HtmlUtil;
 import com.all.in.one.allinOne.util.SecurityUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import net.bytebuddy.utility.RandomString;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,9 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
@@ -75,26 +76,25 @@ public class AuthService {
             throw new DuplicateUsernameException("duplicate username");
         }
 
-        User user = new User();
-
-        if (request.isPasswordsMatched()) {
-            String password = request.getPassword();
-            String encodedPassword = bCryptPasswordEncoder.encode(password);
-            user.setPassword(encodedPassword);
-        } else {
+        if (!request.isPasswordsMatched()) {
             throw new PasswordsNotMatchedException("passwords not matched");
         }
+
+        User user = new User();
+
+        String password = request.getPassword();
+        String encodedPassword = bCryptPasswordEncoder.encode(password);
+        user.setPassword(encodedPassword);
 
         user.setName(request.getName());
         user.setSurname(request.getSurname());
         user.setEmail(request.getEmail());
 
-        String randomCode = RandomString.make(64);
-        user.setVerificationCode(randomCode);
+        user.setOtpCode(generateOtp()); //TODO: mapper
         user.setEnabled(false);
 
         try {
-            emailProvider.sendRegistrationEmail(user);
+            emailProvider.sendRegistrationOtp(user);
         } catch (Exception e) {
             e.printStackTrace();
             throw new EmailProviderException("error occurred in email sending process.");
@@ -104,26 +104,28 @@ public class AuthService {
     }
 
     @Transactional
-    public String verify(String verificationCode) {
-        User user = userService.getByVerificationCode(verificationCode);
-        if (Objects.isNull(user) || user.isEnabled()) {
-            return HtmlUtil.somethingIsWrong;
+    public void verifyRegisterUser(VerifyUserRequest request) {
+        User user = userService.getByUsername(request.getEmail());
+        if (Objects.isNull(user)) {
+            throw new UserNotFoundException("user not found");
+        } else if (!user.getOtpCode().equals(request.getOtpCode())) {
+            throw new VerificationFailedException("otp code is not matched");
         } else {
-            user.setVerificationCode(null);
+            user.setOtpCode(null);
             user.setEnabled(true);
             userService.save(user);
-            return HtmlUtil.operationIsSuccessful;
         }
     }
 
     @Transactional
-    public String verifyResetPassword(String token) {
-        User user = userService.getByResetPasswordToken(token);
-        if (user == null) {
-            return HtmlUtil.somethingIsWrong;
+    public Boolean checkResetPasswordOtp(VerifyResetPasswordRequest request) {
+        User user = userService.getByUsername(request.getEmail());
+
+        if (Objects.isNull(user)) {
+            throw new UserNotFoundException("user not found");
         }
-        userService.enableResetPassword(user);
-        return HtmlUtil.operationIsSuccessful;
+
+        return Objects.equals(user.getOtpCode(), request.getOtp());
     }
 
     @Transactional
@@ -134,13 +136,17 @@ public class AuthService {
             throw new UserNotFoundException("user not found");
         }
 
-        String token = RandomString.make(64);
-        userService.updateResetPasswordToken(token, email);
+        Integer otpCode = generateOtp();
+        user.setOtpCode(otpCode);
+
         try {
-            emailProvider.sendResetPasswordEmail(user);
+            emailProvider.sendResetPasswordOtp(user);
         } catch (MessagingException | UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
+            throw new EmailProviderException("error occurred in email sending process.");
         }
+
+        userService.save(user);
+
     }
 
     @Transactional
@@ -149,7 +155,21 @@ public class AuthService {
             throw new PasswordsNotMatchedException("password not matched");
         }
 
-        userService.updateForgottenPassword(request.getEmail(), request.getPassword());
+        User user = userService.getByUsername(request.getEmail());
+
+        if (!Objects.equals(user.getOtpCode(), request.getOtpCode())) {
+            throw new VerificationFailedException("otp is not ok");
+        }
+
+        user.setOtpCode(null);
+        user.setPassword(request.getPassword());
+
+        userService.save(user);
+    }
+
+    private int generateOtp() {
+        Random random = new Random();
+        return 1000 + random.nextInt(9000);
     }
 
 }

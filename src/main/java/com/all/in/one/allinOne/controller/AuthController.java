@@ -2,6 +2,8 @@ package com.all.in.one.allinOne.controller;
 
 import com.all.in.one.allinOne.dto.request.RegisterRequest;
 import com.all.in.one.allinOne.dto.request.ResetPasswordRequest;
+import com.all.in.one.allinOne.dto.request.VerifyResetPasswordRequest;
+import com.all.in.one.allinOne.dto.request.VerifyUserRequest;
 import com.all.in.one.allinOne.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,14 +36,14 @@ public class AuthController {
         authService.register(request);
     }
 
-    @GetMapping("/verify")
-    public String verifyUser(@RequestParam("code") String code) {
-        return authService.verify(code);
+    @PutMapping("/verify")
+    public void verifyRegisterUser(VerifyUserRequest request) {
+        authService.verifyRegisterUser(request);
     }
 
-    @GetMapping("/verify/reset-password")
-    public String verifyResetPassword(@RequestParam("token") String token) {
-        return authService.verifyResetPassword(token);
+    @PutMapping("/check/reset-password")
+    public Boolean checkResetPasswordOtp(@RequestBody VerifyResetPasswordRequest request) {
+        return authService.checkResetPasswordOtp(request);
     }
 
     @PutMapping("/process/reset-password")

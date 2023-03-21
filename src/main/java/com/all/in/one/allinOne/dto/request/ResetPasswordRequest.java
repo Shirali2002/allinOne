@@ -5,6 +5,7 @@ import com.all.in.one.allinOne.error.constraints.ValidPassword;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Objects;
 
 @Data
@@ -12,6 +13,8 @@ public class ResetPasswordRequest {
 
     @Email
     private String email;  //TODO: validation
+
+    private Integer otpCode;
 
     @ValidPassword
     private String password;

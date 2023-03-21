@@ -42,10 +42,6 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(username);
     }
 
-    public User getByVerificationCode(String code) {
-        return userRepository.findByVerificationCode(code);
-    }
-
     @Transactional
     public void enableResetPassword(User user) {
         if (Objects.isNull(user)) {

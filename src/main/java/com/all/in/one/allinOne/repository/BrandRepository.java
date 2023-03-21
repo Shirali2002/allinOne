@@ -4,5 +4,10 @@ import com.all.in.one.allinOne.entity.Brand;
 import com.all.in.one.allinOne.entity.City;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BrandRepository extends JpaRepository<Brand, Integer> {
+import java.util.List;
+
+public interface BrandRepository extends JpaRepository<Brand, Long> {
+
+    Brand findByCode(Integer code);
+
 }

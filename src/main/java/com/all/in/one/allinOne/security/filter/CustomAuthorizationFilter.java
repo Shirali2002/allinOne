@@ -28,6 +28,10 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
 
     private final List<String> NO_AUTH = List.of("/login",
             "/sign-in",
+            "/util/fill",
+            "/util/fill/model",
+            "/util/fill/brand",
+            "/util/dashboard/fields",
             "/token/refresh",
             "/register",
             "/verify/reset-password",

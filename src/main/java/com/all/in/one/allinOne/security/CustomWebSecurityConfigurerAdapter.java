@@ -30,6 +30,10 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
     private static final String[] AUTH_WHITE_LIST = {
             "/login/**",
             "/sign-in/**",
+            "/util/fill/**",
+            "/util/fill/model/**",
+            "/util/fill/brand/**",
+            "/util/dashboard/fields/**",
             "/token/refresh/**",
             "/register/**",
             "/verify/**",

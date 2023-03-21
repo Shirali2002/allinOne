@@ -2,8 +2,10 @@ package com.all.in.one.allinOne.entity;
 
 import lombok.Data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,7 +24,8 @@ public class DestinationMeasure implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "destinationMeasure")
+    @OneToMany(mappedBy = "destinationMeasure", fetch = FetchType.LAZY,
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Ads> adsList;
 
 }

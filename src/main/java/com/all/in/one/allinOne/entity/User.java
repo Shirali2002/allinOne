@@ -32,8 +32,8 @@ public class User implements Serializable, UserDetails {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "verification_code", length = 64)
-    private String verificationCode;
+    @Column(name = "otp", length = 4)
+    private Integer otpCode;
 
     @Column(name = "enabled")
     private Boolean enabled;
@@ -77,4 +77,5 @@ public class User implements Serializable, UserDetails {
     public boolean isEnabled() {
         return this.enabled;
     }
+
 }

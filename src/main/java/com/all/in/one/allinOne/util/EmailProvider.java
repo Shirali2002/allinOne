@@ -17,36 +17,34 @@ public class EmailProvider {
 
     private final JavaMailSender mailSender;
 
-    public void sendRegistrationEmail(User user) throws MessagingException, UnsupportedEncodingException {
+    public void sendRegistrationOtp(User user) throws MessagingException, UnsupportedEncodingException {
         String content = "Dear [[name]],<br>"
-                + "Please click the link below to verify your registration:<br>"
-                + "<h3><a href=\"[[URL]]\" target=\"_self\">VERIFY</a></h3>"
+                + "Your otp code to verify your registration:<br>"
+                + "[[OTP]]"
                 + "Thank you,<br>"
-                + "todolist organization.";
-        String verifyURL = getSiteUrl() + "/verify?code=" + user.getVerificationCode();
+                + "allinone organization.";
         String subject = "Please verify your registration";
 
-        sendEmail(user, content, subject, verifyURL);
+        sendEmail(user, content, subject);
     }
 
-    public void sendResetPasswordEmail(User user) throws MessagingException, UnsupportedEncodingException {
+    public void sendResetPasswordOtp(User user) throws MessagingException, UnsupportedEncodingException {
         String content = "<p>Hello,</p>"
                 + "<p>You have requested to reset your password.</p>"
-                + "<p>Click the link below to change your password:</p>"
-                + "<p><a href=\"[[URL]]\" target=\"_self\">Change my password</a></p>"
+                + "<p>Use the otp code below to change your password:</p>"
+                + "<p>[[OTP]]</p>"
                 + "<br>"
                 + "<p>Ignore this email if you do remember your password, "
                 + "or you have not made the request.</p>";
-        String verifyURL = getSiteUrl() + "/verify/reset-password?token=" + user.getResetPasswordToken();
         String subject = "Here's the link to reset your password";
 
-        sendEmail(user, content, subject, verifyURL);
+        sendEmail(user, content, subject);
     }
 
-    private void sendEmail(User user, String content, String subject, String verifyUrl) throws MessagingException, UnsupportedEncodingException {
+    private void sendEmail(User user, String content, String subject) throws MessagingException, UnsupportedEncodingException {
         String toAddress = user.getEmail();
         String fromAddress = "todolistorganization@gmail.com";
-        String senderName = "todolist organization";
+        String senderName = "allinone organization";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -57,19 +55,11 @@ public class EmailProvider {
 
         content = content.replace("[[name]]", user.getFullName());
 
-        content = content.replace("[[URL]]", verifyUrl);
+        content = content.replace("[[OTP]]", String.valueOf(user.getOtpCode()));
 
         helper.setText(content, true);
 
         mailSender.send(message);
-    }
-
-    private String getSiteUrl() {
-        HttpServletRequest httpServletRequest =
-                RequestContextUtil.getServletRequest()
-                        .orElseThrow(UnsupportedOperationException::new);
-        String siteUrl = httpServletRequest.getRequestURL().toString();
-        return siteUrl.replace(httpServletRequest.getServletPath(), "");
     }
 
 }
