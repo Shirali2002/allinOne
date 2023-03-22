@@ -5,4 +5,7 @@ import com.all.in.one.allinOne.entity.Currency;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CurrencyRepository extends JpaRepository<Currency, Integer> {
+
+    Currency findByCurrencyCode(Integer code);
+
 }

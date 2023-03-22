@@ -2,6 +2,9 @@ package com.all.in.one.allinOne.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import java.io.Serial;
 import java.io.Serializable;
@@ -18,6 +22,9 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "tb_brand")
 @JsonIgnoreProperties({"models"})
 public class Brand implements Serializable {
@@ -29,12 +36,15 @@ public class Brand implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "code", columnDefinition = "integer default -1")
-    private Integer code;
+    @Column(name = "brand_code")
+    private Integer brandCode;
 
-//    @Id
-//    @Column(name = "id")
-//    private Integer id;
+    @PrePersist
+    void prePersist() {
+        if (this.brandCode == null) {
+            this.brandCode = -1;
+        }
+    }
 
     @Column(name = "name")
     private String name;
@@ -43,60 +53,26 @@ public class Brand implements Serializable {
             cascade = {CascadeType.ALL})
     private List<Model> models;
 
-    public Brand() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public void setCode(Integer code) {
-        this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Model> getModels() {
-        return models;
-    }
-
-    public void setModels(List<Model> models) {
-        this.models = models;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Brand brand = (Brand) o;
-        return Objects.equals(id, brand.id) && Objects.equals(code, brand.code) && Objects.equals(name, brand.name);
+        return Objects.equals(id, brand.id) && Objects.equals(brandCode, brand.brandCode) && Objects.equals(name, brand.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, code, name);
+        return Objects.hash(id, brandCode, name);
     }
 
     @Override
     public String toString() {
         return "Brand{" +
                 "id=" + id +
-                ", code=" + code +
+                ", brandCode=" + brandCode +
                 ", name='" + name + '\'' +
                 '}';
     }
+
 }

@@ -5,4 +5,7 @@ import com.all.in.one.allinOne.entity.Colour;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ColourRepository extends JpaRepository<Colour, Integer> {
+
+    Colour findByColourCode(Integer code);
+
 }

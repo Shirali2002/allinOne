@@ -26,6 +26,5 @@ public class GetDashboardFieldsResponse {
     private List<GearBoxType> gearBoxTypes;
     private List<GearType> gearTypes;
     private List<Brand> brands;
-    private List<Model> models;
 
 }

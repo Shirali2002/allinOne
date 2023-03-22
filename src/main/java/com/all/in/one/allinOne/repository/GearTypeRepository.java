@@ -5,4 +5,7 @@ import com.all.in.one.allinOne.entity.GearType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GearTypeRepository extends JpaRepository<GearType, Integer> {
+
+    GearType findByGearTypeCode(Integer code);
+
 }

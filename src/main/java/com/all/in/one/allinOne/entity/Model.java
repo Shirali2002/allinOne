@@ -2,6 +2,9 @@ package com.all.in.one.allinOne.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,13 +23,12 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "tb_model")
-@JsonIgnoreProperties({"brand"})
+@JsonIgnoreProperties({"adsList"})
 public class Model implements Serializable {
-
-//    @Id
-//    @Column(name = "id")
-//    private Integer id;
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -43,55 +45,12 @@ public class Model implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY,
             cascade = {CascadeType.ALL})
-    @JoinColumn(name = "brand_id", referencedColumnName = "code", insertable = false, updatable = false)
+    @JoinColumn(name = "brand_id", referencedColumnName = "brand_code", insertable = false, updatable = false)
     private Brand brand;
 
     @OneToMany(mappedBy = "model", fetch = FetchType.LAZY,
             cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Ads> adsList;
-
-    public Model() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Integer getModelCode() {
-        return modelCode;
-    }
-
-    public void setModelCode(Integer modelCode) {
-        this.modelCode = modelCode;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Brand getBrand() {
-        return brand;
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }
-
-    public List<Ads> getAdsList() {
-        return adsList;
-    }
-
-    public void setAdsList(List<Ads> adsList) {
-        this.adsList = adsList;
-    }
 
     @Override
     public boolean equals(Object o) {

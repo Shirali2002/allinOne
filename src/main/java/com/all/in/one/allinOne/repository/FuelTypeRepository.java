@@ -5,4 +5,7 @@ import com.all.in.one.allinOne.entity.FuelType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FuelTypeRepository extends JpaRepository<FuelType, Integer> {
+
+    FuelType findByFuelTypeCode(Integer code);
+
 }
