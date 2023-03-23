@@ -3,46 +3,362 @@
 <properties>
     <comment>All In One Queries</comment>
 
-    <entry key="allinone.query.findUserById">
-        <![CDATA[
-            SELECT id,
-                   name,
-                   surname,
-                   username,
-                   password,
-                   role
-              FROM all_in_one.user
-             WHERE id = :id
-        ]]>
-    </entry>
-
-    <entry key="allinone.query.findUserByUsername">
-        <![CDATA[
-            SELECT id,
-                   name,
-                   surname,
-                   username,
-                   password,
-                   role
-              FROM all_in_one.user
-             WHERE username = :username
-        ]]>
-    </entry>
-
-    <entry key="allinone.query.addUser">
+    <entry key="allinone.query.saveCurrency">
         <![CDATA[
             INSERT
-              INTO all_in_one.user
-                   (username,
+              INTO tb_currency
+                   (currency_code,
+                   name)
+            VALUES (:code,
+                   :name);
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.saveBanType">
+        <![CDATA[
+            INSERT
+              INTO tb_ban_type
+                   (ban_type_code,
+                   name)
+            VALUES (:code,
+                   :name);
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.saveBrand">
+        <![CDATA[
+            INSERT
+              INTO tb_brand
+                   (brand_code,
+                   name)
+            VALUES (:code,
+                   :name);
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.saveCity">
+        <![CDATA[
+            INSERT
+              INTO tb_city
+                   (city_code,
+                   name)
+            VALUES (:code,
+                   :name);
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.saveColour">
+        <![CDATA[
+            INSERT
+              INTO tb_colour
+                   (colour_code,
+                   name)
+            VALUES (:code,
+                   :name);
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.saveDestMeasure">
+        <![CDATA[
+            INSERT
+              INTO tb_dest_measure
+                   (dest_code,
+                   name)
+            VALUES (:code,
+                   :name);
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.saveFuelType">
+        <![CDATA[
+            INSERT
+              INTO tb_fuel_type
+                   (fuel_type_code,
+                   name)
+            VALUES (:code,
+                   :name);
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.saveGearBoxType">
+        <![CDATA[
+            INSERT
+              INTO tb_gear_box_type
+                   (gear_box_code,
+                   name)
+            VALUES (:code,
+                   :name);
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.saveGearType">
+        <![CDATA[
+            INSERT
+              INTO tb_gear_type
+                   (gear_type_code,
+                   name)
+            VALUES (:code,
+                   :name);
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.saveModel">
+        <![CDATA[
+            INSERT
+              INTO tb_model
+                   (model_code,
                    name,
-                   surname,
-                   password,
-                   role)
-            VALUES (:username,
+                   brand_id)
+            VALUES (:model,
                    :name,
-                   :surname,
+                   :brandId);
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.saveAds">
+        <![CDATA[
+            INSERT
+              INTO tb_ads(
+                   ads_link,
+                   destination,
+                   engine_horse_power,
+                   engine_power,
+                   image_link,
+                   number_of_seats,
+                   price,
+                   ttl,
+                   used,
+                   year,
+                   ban_type_id,
+                   city_id,
+                   colour_id,
+                   currency_id,
+                   dest_id,
+                   fuel_type_id,
+                   gear_box_type_id,
+                   gear_type_id,
+                   model_id)
+            VALUES (:linkAds,
+                   :destination,
+                   :horsePower,
+                   :enginePower,
+                   :imangeLink,
+                   :numberOfSeats,
+                   :price,
+                   :ttl,
+                   :used,
+                   :year,
+                   :banTypeId,
+                   :cityId,
+                   :colourId,
+                   :currencyId,
+                   :destMeasureId,
+                   :fuelTypeId,
+                   :gearBoxTypeId,
+                   :gearTypeId,
+                   :modelId);
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.saveUser">
+        <![CDATA[
+            INSERT
+              INTO tb_user
+                   (email,
+                   enabled,
+                   name,
+                   otp,
+                   password,
+                   reset_enabled,
+                   reset_password_token,
+                   surname)
+            VALUES (:email,
+                   :enabled,
+                   :name,
+                   :otp,
                    :password,
-                   :role);
+                   :resetEnabled,
+                   :resetToken,
+                   :surname);
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findAllAds">
+        <![CDATA[
+            SELECT *
+              FROM tb_ads;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findAllAdsPageByPage">
+        <![CDATA[
+            SELECT ads_link,
+                   destination,
+                   engine_horse_power,
+                   engine_power,
+                   image_link,
+                   number_of_seats,
+                   price,
+                   ttl,
+                   used,
+                   year,
+                   ban_type_id as ban_type_code,
+                   city_id as city_code,
+                   colour_id as colour_code,
+                   currency_id as currency_code,
+                   dest_id as destination_measure_code,
+                   fuel_type_id as fuel_type_code,
+                   gear_box_type_id as gear_box_type_code,
+                   gear_type_id as gear_type_code,
+                   model_id as model_code
+              FROM tb_ads
+             ORDER
+                BY ttl
+              DESC
+             LIMIT :limit
+            OFFSET :from;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findAllBanType">
+        <![CDATA[
+            SELECT *
+              FROM tb_ban_type;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findAllBrand">
+        <![CDATA[
+            SELECT *
+              FROM tb_brand;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findAllCity">
+        <![CDATA[
+            SELECT *
+              FROM tb_city;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findAllColour">
+        <![CDATA[
+            SELECT *
+              FROM tb_colour;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findAllCurrency">
+        <![CDATA[
+            SELECT *
+              FROM tb_currency;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findAllDestMeasure">
+        <![CDATA[
+            SELECT *
+              FROM tb_dest_measure;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findAllFuelType">
+        <![CDATA[
+            SELECT *
+              FROM tb_fuel_type;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findAllGearBoxType">
+        <![CDATA[
+            SELECT *
+              FROM tb_gear_box_type;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findAllGearType">
+        <![CDATA[
+            SELECT *
+              FROM tb_gear_type;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findAllModel">
+        <![CDATA[
+            SELECT id,
+                   model_code,
+                   name,
+                   brand_id as brand_code
+              FROM tb_model;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findAllModelByBrandCode">
+        <![CDATA[
+            SELECT id,
+                   model_code,
+                   name,
+                   brand_id as brand_code
+              FROM tb_model
+             WHERE brand_id = :brandCode;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findAllUser">
+        <![CDATA[
+            SELECT email,
+                   enabled,
+                   name,
+                   otp as otp_code,
+                   password,
+                   reset_enabled,
+                   reset_password_token,
+                   surname
+              FROM tb_user;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findUserByEmail">
+        <![CDATA[
+            SELECT email,
+                   enabled,
+                   name,
+                   otp as otp_code,
+                   password,
+                   reset_enabled,
+                   reset_password_token,
+                   surname
+              FROM tb_user
+             WHERE email = :email;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findUserByResetPasswordToken">
+        <![CDATA[
+            SELECT email,
+                   enabled,
+                   name,
+                   otp as otp_code,
+                   password,
+                   reset_enabled,
+                   reset_password_token,
+                   surname
+              FROM tb_user
+             WHERE reset_password_token = :resetPasswordToken;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.updateUserByEmail">
+        <![CDATA[
+            UPDATE tb_user
+               SET name = :name,
+                   enabled = :enabled,
+                   otp = :otp,
+                   password = :password,
+                   reset_enabled = :resetEnabled,
+                   reset_password_token = :resetToken,
+                   surname = :surname
+             WHERE email = :email;
         ]]>
     </entry>
 

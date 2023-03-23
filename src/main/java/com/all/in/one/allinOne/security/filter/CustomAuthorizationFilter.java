@@ -36,8 +36,8 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
             "/util/dashboard/models",
             "/token/refresh",
             "/register",
-            "/verify/reset-password",
             "/process/reset-password",
+            "/check/reset-password",
             "/reset-password",
             "/verify");
 

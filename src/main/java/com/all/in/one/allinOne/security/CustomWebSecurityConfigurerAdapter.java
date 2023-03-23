@@ -29,6 +29,7 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
 
     private static final String[] AUTH_WHITE_LIST = {
             "/login/**",
+            "/ads/**",
             "/sign-in/**",
             "/util/fill/**",
             "/util/fill/model/**",
@@ -39,7 +40,7 @@ public class CustomWebSecurityConfigurerAdapter extends WebSecurityConfigurerAda
             "/token/refresh/**",
             "/register/**",
             "/verify/**",
-            "/verify/reset-password/**",
+            "/check/reset-password/**",
             "/process/reset-password/**",
             "/reset-password/**",
             "/v3/api-docs/**",

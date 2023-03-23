@@ -18,11 +18,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
@@ -106,15 +106,19 @@ public class AuthService {
     @Transactional
     public void verifyRegisterUser(VerifyUserRequest request) {
         User user = userService.getByUsername(request.getEmail());
+
         if (Objects.isNull(user)) {
             throw new UserNotFoundException("user not found");
-        } else if (!user.getOtpCode().equals(request.getOtpCode())) {
-            throw new VerificationFailedException("otp code is not matched");
-        } else {
-            user.setOtpCode(null);
-            user.setEnabled(true);
-            userService.save(user);
         }
+
+        if (!Objects.equals(user.getOtpCode(), request.getOtpCode())) {
+            throw new VerificationFailedException("otp code is not matched");
+        }
+
+        user.setOtpCode(null);
+        user.setEnabled(true);
+        userService.update(user);
+
     }
 
     @Transactional
@@ -145,7 +149,7 @@ public class AuthService {
             throw new EmailProviderException("error occurred in email sending process.");
         }
 
-        userService.save(user);
+        userService.update(user);
 
     }
 
@@ -157,14 +161,20 @@ public class AuthService {
 
         User user = userService.getByUsername(request.getEmail());
 
+        if (Objects.isNull(user)) {
+            throw new UserNotFoundException("user not found");
+        }
+
         if (!Objects.equals(user.getOtpCode(), request.getOtpCode())) {
             throw new VerificationFailedException("otp is not ok");
         }
 
-        user.setOtpCode(null);
-        user.setPassword(request.getPassword());
+        String encodedPassword = bCryptPasswordEncoder.encode(request.getPassword());
 
-        userService.save(user);
+        user.setOtpCode(null);
+        user.setPassword(encodedPassword);
+
+        userService.update(user);
     }
 
     private int generateOtp() {
