@@ -1,78 +1,16 @@
 package com.all.in.one.allinOne.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
-import java.io.Serial;
-import java.io.Serializable;
-import java.util.List;
-import java.util.Objects;
-
-@Entity
+@Data
 @NoArgsConstructor
-@Getter
-@Setter
-@Table(name = "tb_currency")
-@JsonIgnoreProperties({"adsList"})
-public class Currency implements Serializable {
+public class Currency {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
     private Long id;
-
-    @Column(name = "currency_code")
     private Integer currencyCode;
-
-    @PrePersist
-    void prePersist() {
-        if (this.currencyCode == null) {
-            this.currencyCode = -1;
-        }
-    }
-
-    @Column(name = "name")
     private String name;
-
-    @OneToMany(mappedBy = "currency", fetch = FetchType.LAZY,
-            cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    private List<Ads> adsList;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Currency currency = (Currency) o;
-        return Objects.equals(id, currency.id) && Objects.equals(currencyCode, currency.currencyCode) && Objects.equals(name, currency.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, currencyCode, name);
-    }
-
-    @Override
-    public String toString() {
-        return "Currency{" +
-                "id=" + id +
-                ", currencyCode=" + currencyCode +
-                ", name='" + name + '\'' +
-                '}';
-    }
 
 }

@@ -6,6 +6,7 @@ import com.all.in.one.allinOne.dto.request.VerifyResetPasswordRequest;
 import com.all.in.one.allinOne.dto.request.VerifyUserRequest;
 import com.all.in.one.allinOne.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import java.io.IOException;
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", allowedHeaders = "*")
+@Validated
 public class AuthController {
 
     private final AuthService authService;
@@ -37,12 +39,12 @@ public class AuthController {
     }
 
     @PutMapping("/verify")
-    public void verifyRegisterUser(VerifyUserRequest request) {
+    public void verifyRegisterUser(@RequestBody @Valid VerifyUserRequest request) {
         authService.verifyRegisterUser(request);
     }
 
     @PutMapping("/check/reset-password")
-    public Boolean checkResetPasswordOtp(@RequestBody VerifyResetPasswordRequest request) {
+    public Boolean checkResetPasswordOtp(@RequestBody @Valid VerifyResetPasswordRequest request) {
         return authService.checkResetPasswordOtp(request);
     }
 
@@ -52,7 +54,7 @@ public class AuthController {
     }
 
     @PutMapping("reset-password")
-    public void resetPassword(@RequestBody ResetPasswordRequest request) {
+    public void resetPassword(@RequestBody @Valid ResetPasswordRequest request) {
         authService.resetPassword(request);
     }
 
