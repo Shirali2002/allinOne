@@ -9,6 +9,7 @@ import com.all.in.one.allinOne.entity.User;
 import com.all.in.one.allinOne.error.exception.DuplicateUsernameException;
 import com.all.in.one.allinOne.error.exception.EmailProviderException;
 import com.all.in.one.allinOne.error.exception.PasswordsNotMatchedException;
+import com.all.in.one.allinOne.error.exception.UserNotEnabledException;
 import com.all.in.one.allinOne.error.exception.UserNotFoundException;
 import com.all.in.one.allinOne.error.exception.VerificationFailedException;
 import com.all.in.one.allinOne.util.EmailProvider;
@@ -31,6 +32,7 @@ import java.util.Random;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Service
@@ -56,6 +58,14 @@ public class AuthService {
                 final Map<String, String> tokenMap = SecurityUtil.getTokenMap(accessToken, newRefreshToken);
                 new ObjectMapper().writeValue(response.getOutputStream(), tokenMap);
 
+            } catch (UserNotEnabledException ex) {
+                response.setHeader("error", ex.getMessage());
+                response.setStatus(NOT_ACCEPTABLE.value());
+
+                final Map<String, String> error = Map.of("error_message", ex.getMessage());
+                response.setContentType(APPLICATION_JSON_VALUE);
+
+                new ObjectMapper().writeValue(response.getOutputStream(), error);
             } catch (Exception exception) {
                 response.setHeader("error", exception.getMessage());
                 response.setStatus(FORBIDDEN.value());

@@ -19,4 +19,4 @@ spring:
             enable: true
 
 server:
-  port: 4545
+  port: 5000

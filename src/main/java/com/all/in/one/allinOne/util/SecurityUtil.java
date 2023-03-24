@@ -39,7 +39,6 @@ public final class SecurityUtil {
     public static String getRefreshToken(UserDetails user, String requestUrl) {
         return JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.REFRESH_TOKEN_EXPIRE_TIME))
                 .withIssuer(requestUrl)
                 .sign(SecurityConstants.ALGORITHM);
     }

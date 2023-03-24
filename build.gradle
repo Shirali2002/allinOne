@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.all.in.one'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2'
 sourceCompatibility = '17'
 
 configurations {
@@ -37,6 +37,10 @@ dependencies {
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+jar {
+	enabled true
 }
 
 tasks.named('test') {
