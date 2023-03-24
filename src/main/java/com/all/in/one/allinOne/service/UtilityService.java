@@ -35,4 +35,9 @@ public class UtilityService {
         return GetDashboardModelsResponse.of(models);
     }
 
+    public GetDashboardModelsResponse getDashboardModels() {
+        List<Model> models = utilityRepository.findAllModel();
+        return GetDashboardModelsResponse.of(models);
+    }
+
 }

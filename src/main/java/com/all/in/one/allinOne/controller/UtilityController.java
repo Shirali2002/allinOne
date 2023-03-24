@@ -28,4 +28,9 @@ public class UtilityController {
         return utilityService.getDashboardModels(brandId);
     }
 
+    @GetMapping("dashboard/models")
+    public GetDashboardModelsResponse getDashboardModels() {
+        return utilityService.getDashboardModels();
+    }
+
 }
