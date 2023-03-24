@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 
 @Component
@@ -20,7 +19,7 @@ public class EmailProvider {
     public void sendRegistrationOtp(User user) throws MessagingException, UnsupportedEncodingException {
         String content = "Dear [[name]],<br>"
                 + "Your otp code to verify your registration:<br>"
-                + "[[OTP]]"
+                + "[[OTP]]<br>"
                 + "Thank you,<br>"
                 + "allinone organization.";
         String subject = "Please verify your registration";
@@ -36,7 +35,7 @@ public class EmailProvider {
                 + "<br>"
                 + "<p>Ignore this email if you do remember your password, "
                 + "or you have not made the request.</p>";
-        String subject = "Here's the link to reset your password";
+        String subject = "Please verify your reset password request";
 
         sendEmail(user, content, subject);
     }
