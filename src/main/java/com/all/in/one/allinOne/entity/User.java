@@ -1,47 +1,25 @@
 package com.all.in.one.allinOne.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-@Entity
-@Table(name = "tb_user")
-public class User implements Serializable, UserDetails {
+public class User implements UserDetails {
 
-    @Id
-    @Column(name = "email")
+    private Long id;
     private String email;
-
-    @Column(name = "name")
     private String name;
-
-    @Column(name = "surname")
     private String surname;
-
-    @Column(name = "password")
     private String password;
-
-    @Column(name = "verification_code", length = 64)
-    private String verificationCode;
-
-    @Column(name = "enabled")
+    private Integer otpCode;
     private Boolean enabled;
-
-    @Column(name = "reset_password_token", length = 64)
     private String resetPasswordToken;
-
-    @Column(name = "reset_enabled")
     private Boolean resetEnabled;
 
     public String getFullName() {
@@ -77,4 +55,5 @@ public class User implements Serializable, UserDetails {
     public boolean isEnabled() {
         return this.enabled;
     }
+
 }

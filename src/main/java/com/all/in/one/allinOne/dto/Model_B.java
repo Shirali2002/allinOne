@@ -1003,8 +1003,8 @@ public enum Model_B {
     CADILLAC_FLEETWOOD("Fleetwood", 38, 3270),
     CADILLAC_CT6("CT6", 38, 3448),
     CADILLAC_XT5("XT5", 38, 3449),
-    CADILLAC_CT5("CT5", 38, 4393),
-    UNKNOWN("unknown", -1, -1);
+    CADILLAC_CT5("CT5", 38, 4393);
+//    UNKNOWN("unknown", -1, -1);
 
     private final String nick;
     private final int brandId;
@@ -1032,7 +1032,7 @@ public enum Model_B {
         return Arrays.stream(Model_B.values())
                 .filter(m -> m.getNick().equals(value))
                 .findFirst()
-                .orElse(Model_B.UNKNOWN);
+                .orElse(null);
     }
 
 }

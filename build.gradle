@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.all.in.one'
-version = '0.0.1-SNAPSHOT'
+version = '0.1.4'
 sourceCompatibility = '17'
 
 configurations {
@@ -22,18 +22,20 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
 	implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-aop'
 	implementation "org.springframework.boot:spring-boot-starter-mail"
 	implementation "mysql:mysql-connector-java:${mysqlDriverVersion}"
-	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
 	implementation "com.auth0:java-jwt:${authJwtVersion}"
 	implementation "org.apache.commons:commons-collections4:${commonsCollections4Version}"
 	implementation "org.springdoc:springdoc-openapi-ui:${openApiVersion}"
 	implementation 'org.passay:passay:1.0'
-	compileOnly "org.projectlombok:lombok:${lombokVersion}"
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	implementation 'org.jsoup:jsoup:1.15.3'
+	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 	annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+	compileOnly "org.projectlombok:lombok:${lombokVersion}"
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 }

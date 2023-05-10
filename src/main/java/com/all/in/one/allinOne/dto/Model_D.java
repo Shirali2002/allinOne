@@ -1151,8 +1151,8 @@ public enum Model_D {
     HOZON_NETA_U("Neta U", 409, 4640),
     HOZON_NETA_V("Neta V", 409, 4641),
     HOZON_NETA_S("Neta S", 409, 4642),
-    HOZON_NETA_E("Neta E", 409, 4643),
-    UNKNOWN("unknown", -1, -1);
+    HOZON_NETA_E("Neta E", 409, 4643);
+//    UNKNOWN("unknown", -1, -1);
 
     private final String nick;
     private final int brandId;
@@ -1180,7 +1180,7 @@ public enum Model_D {
         return Arrays.stream(Model_D.values())
                 .filter(m -> m.getNick().equals(value))
                 .findFirst()
-                .orElse(Model_D.UNKNOWN);
+                .orElse(null);
     }
 
 }
