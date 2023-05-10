@@ -30,6 +30,7 @@ public enum Queries {
     FIND_ALL_USER("findAllUser"),
     FIND_USER_BY_EMAIL("findUserByEmail"),
     FIND_USER_BY_RESET_PASSWORD_TOKEN("findUserByResetPasswordToken"),
+    FIND_COUNT_OF_ADS_BY_ADS_LINK("findCountOfAdsByAdsLink"),
     UPDATE_USER_BY_EMAIL("updateUserByEmail");
 
     private final String key;

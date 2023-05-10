@@ -31,7 +31,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UtilityService {
 
-    private final AdsRepository adsRepository;
+    private final AdsService adsService;
     private final UtilityRepository utilityRepository;
 
     @Transactional
@@ -104,43 +104,39 @@ public class UtilityService {
 
     @Transactional
     public void dbFillBrand() {
-//        saveBrand(9, "Audi");
-//        saveBrand(-1, "unknown");
         Arrays.stream(Brand.values())
                 .forEach(brand -> saveBrand(brand.getId(), brand.getValue()));
     }
 
     @Transactional
     public void dbFillAds() {
-        Ads ads = new Ads();
-        ads.setAdsLink("https://turbo.az/autos/7003473-gaz-next-a21r22-30");
-        ads.setImageLink("https://turbo.azstatic.com/uploads/full/2023%2F01%2F13%2F11%2F22%2F11%2F6a85597a-a8c6-4952-982f-4e7dc90ed265%2F8530_fV4txe9wVphwEU05EwFbmw.jpg");
-        ads.setCityCode(1);
-        ads.setModelCode(12);
-        ads.setYear(2000);
-        ads.setBanTypeCode(9);
-        ads.setColourCode(27);
-        ads.setEnginePower("3.5 L");
-        ads.setEngineHorsePower("150 a.g");
-        ads.setFuelTypeCode(2);
-        ads.setDestination(0L);
-        ads.setDestinationMeasureCode(1);
-        ads.setGearBoxTypeCode(1);
-        ads.setGearTypeCode(1);
-        ads.setUsed(Boolean.FALSE);
-        ads.setNumberOfSeats(5);
-        ads.setPrice("39000");
-        ads.setCurrencyCode(1);
-        ads.setTtl(LocalDateTime.now());
-
-        adsRepository.saveAds(ads);
+//        Ads ads = new Ads();
+//        ads.setAdsLink("https://turbo.az/autos/7325893-mercedes-e-200");
+//        ads.setImageLink("https://turbo.azstatic.com/uploads/full/2023%2F04%2F24%2F16%2F27%2F46%2Fcd6715d1-d4c0-4691-a32d-f00ce8a0eace%2F52799_Q19cKx4vPCAP2GH_H463ZA.jpg");
+//        ads.setCity("Bakı");
+//        ads.setModel("E 200");
+//        ads.setBrand("Mercedes");
+//        ads.setYear(1995);
+//        ads.setBanType("Sedan");
+//        ads.setColour("Gümüşü");
+//        ads.setEnginePower("2.0 L");
+//        ads.setEngineHorsePower("136 a.g");
+//        ads.setFuelType("Benzin");
+//        ads.setDestination("482 000");
+//        ads.setDestinationMeasure("km");
+//        ads.setGearBoxType("Mexaniki");
+//        ads.setGearType("Tam");
+//        ads.setUsed(Boolean.TRUE);
+//        ads.setPrice(39000);
+//        ads.setCurrency("AZN");
+//        ads.setTtl(LocalDateTime.now());
+//
+//        adsService.saveAds(ads);
 
     }
 
     @Transactional
     public void dbFillModel() {
-//        saveModel(12, "S7", 9);
-//        saveModel(-1, "unknown", -1);
         Arrays.stream(Model_A.values())
                 .forEach(model -> saveModel(model.getModelId(), model.getNick(), model.getBrandId()));
 
@@ -168,6 +164,11 @@ public class UtilityService {
         response.setBrands(utilityRepository.findAllBrand());
 
         return response;
+    }
+
+    public GetDashboardModelsResponse getDashboardModels() {
+        List<Model> models = utilityRepository.findAllModel();
+        return GetDashboardModelsResponse.of(models);
     }
 
     public GetDashboardModelsResponse getDashboardModels(Integer brandCode) {

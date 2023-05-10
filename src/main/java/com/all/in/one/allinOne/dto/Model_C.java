@@ -1059,8 +1059,8 @@ public enum Model_C {
     YAMAHA_MT_07("MT-07", 138, 4084),
     YAMAHA_MT_09("MT-09", 138, 4085),
     YAMAHA_XV950_BOLT("XV950 Bolt", 138, 4170),
-    YAMAHA_TDM_850("TDM 850", 138, 4629),
-    UNKNOWN("unknown", -1, -1);
+    YAMAHA_TDM_850("TDM 850", 138, 4629);
+//    UNKNOWN("unknown", -1, -1);
 
     private final String nick;
     private final int brandId;
@@ -1088,7 +1088,7 @@ public enum Model_C {
         return Arrays.stream(Model_C.values())
                 .filter(m -> m.getNick().equals(value))
                 .findFirst()
-                .orElse(Model_C.UNKNOWN);
+                .orElse(null);
     }
 
 }

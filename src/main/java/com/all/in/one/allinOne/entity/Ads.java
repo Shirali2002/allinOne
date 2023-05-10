@@ -1,6 +1,5 @@
 package com.all.in.one.allinOne.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,26 +9,25 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Ads {
 
-    @JsonIgnore
-    private Long id;
     private String adsLink;
     private String imageLink;
-    private Integer cityCode;
-    private Integer modelCode;
-    private Integer year;
-    private Integer banTypeCode;
-    private Integer colourCode;
-    private String enginePower;
-    private String engineHorsePower;
-    private Integer fuelTypeCode;
-    private Long destination;
-    private Integer destinationMeasureCode;
-    private Integer gearBoxTypeCode;
-    private Integer gearTypeCode;
-    private Boolean used;
+    private Integer destination;
+    private Integer enginePower;
+    private Integer engineHorsePower;
     private Integer numberOfSeats;
-    private String price;
-    private Integer currencyCode;
+    private Integer price;
     private LocalDateTime ttl;
+    private Boolean used;
+    private Integer year;
+    private String banType;
+    private String city;
+    private String colour;
+    private String currency;
+    private String destinationMeasure;
+    private String fuelType;
+    private String gearBoxType;
+    private String gearType;
+    private String model;
+    private String brand;
 
 }

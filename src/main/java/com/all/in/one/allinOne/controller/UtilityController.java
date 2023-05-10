@@ -19,22 +19,22 @@ public class UtilityController {
 
     private final UtilityService utilityService;
 
-    @PostMapping("fill")
+//    @PostMapping("fill")
     public void dbFill() {
         utilityService.dbFill();
     }
 
-    @PostMapping("fill/model")
+//    @PostMapping("fill/model")
     public void dbFillModel() {
         utilityService.dbFillModel();
     }
 
-    @PostMapping("fill/brand")
+//    @PostMapping("fill/brand")
     public void dbFillBrand() {
         utilityService.dbFillBrand();
     }
 
-    @PostMapping("fill/ads")
+//    @PostMapping("fill/ads")
     public void dbFillAds() {
         utilityService.dbFillAds();
     }
@@ -42,6 +42,11 @@ public class UtilityController {
     @GetMapping("dashboard/fields")
     public GetDashboardFieldsResponse getDashboardFields() {
         return utilityService.getDashboardFields();
+    }
+
+    @GetMapping("dashboard/models")
+    public GetDashboardModelsResponse getDashboardModels() {
+        return utilityService.getDashboardModels();
     }
 
     @GetMapping("dashboard/models/{brandId}")

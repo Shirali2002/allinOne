@@ -18,5 +18,10 @@ spring:
           starttls:
             enable: true
 
+parse:
+  turbo-az:
+    cron: 0 0/2 * * * *
+    enable-schedule: true
+
 server:
-  port: 4545
+  port: 5000

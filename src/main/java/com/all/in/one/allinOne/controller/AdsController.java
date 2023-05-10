@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,9 +21,14 @@ public class AdsController {
 
     private final AdsService adsService;
 
-    @GetMapping("/{from}/limit/{limit}")
-    public List<Ads> getAds(@PathVariable Integer from, @PathVariable Integer limit) {
-        return adsService.getAds(from, limit);
+    @GetMapping("/{page}/size/{size}")
+    public List<Ads> getAds(@PathVariable Integer page, @PathVariable Integer size) {
+        return adsService.getAds(page, size);
+    }
+
+    @PostMapping("/save")
+    public void saveAds(@RequestBody Ads ads) {
+        adsService.saveAds(ads);
     }
 
 }

@@ -117,46 +117,67 @@
 
     <entry key="allinone.query.saveAds">
         <![CDATA[
-            INSERT
-              INTO tb_ads(
-                   ads_link,
-                   destination,
-                   engine_horse_power,
-                   engine_power,
-                   image_link,
-                   number_of_seats,
-                   price,
-                   ttl,
-                   used,
-                   year,
-                   ban_type_id,
-                   city_id,
-                   colour_id,
-                   currency_id,
-                   dest_id,
-                   fuel_type_id,
-                   gear_box_type_id,
-                   gear_type_id,
-                   model_id)
-            VALUES (:linkAds,
-                   :destination,
-                   :horsePower,
-                   :enginePower,
-                   :imangeLink,
-                   :numberOfSeats,
-                   :price,
-                   :ttl,
-                   :used,
-                   :year,
-                   :banTypeId,
-                   :cityId,
-                   :colourId,
-                   :currencyId,
-                   :destMeasureId,
-                   :fuelTypeId,
-                   :gearBoxTypeId,
-                   :gearTypeId,
-                   :modelId);
+            INSERT INTO tb_adss(
+                            ads_link,
+                            image_link,
+                            destination,
+                            engine_horse_power,
+                            engine_power,
+                            number_of_seats,
+                            price,
+                            ttl,
+                            used,
+                            prod_year,
+                            ban_type_id,
+                            city_id,
+                            colour_id,
+                            currency_id,
+                            dest_measure_id,
+                            fuel_type_id,
+                            gear_box_type_id,
+                            gear_type_id,
+                            model_id)
+                 VALUES (:linkAds,
+                        :imageLink,
+                        :destination,
+                        :horsePower,
+                        :enginePower,
+                        :numberOfSeats,
+                        :price,
+                        :ttl,
+                        :used,
+                        :year,
+                        (SELECT ban_type_code
+                           FROM tb_ban_type
+                          WHERE name = :banType),
+                        (SELECT city_code
+                           FROM tb_city
+                          WHERE name = :city),
+                        (SELECT colour_code
+                           FROM tb_colour
+                          WHERE name = :colour),
+                        (SELECT currency_code
+                           FROM tb_currency
+                          WHERE name = :currency),
+                        (SELECT dest_code
+                           FROM tb_dest_measure
+                          WHERE name = :destMeasure),
+                        (SELECT fuel_type_code
+                           FROM tb_fuel_type
+                          WHERE name = :fuelType),
+                        (SELECT gear_box_code
+                           FROM tb_gear_box_type
+                          WHERE name = :gearBoxType),
+                        (SELECT gear_type_code
+                           FROM tb_gear_type
+                          WHERE name = :gearType),
+                        (SELECT m.model_code
+                           FROM tb_model m
+                      LEFT JOIN tb_brand b
+                             ON m.brand_id = b.brand_code
+                          WHERE m.name = :model
+                            AND b.name = :brand));
+
         ]]>
     </entry>
 
@@ -185,38 +206,104 @@
 
     <entry key="allinone.query.findAllAds">
         <![CDATA[
-            SELECT *
-              FROM tb_ads;
+            SELECT a.ads_link           as ads_link,
+                   a.image_link         as image_link,
+                   a.destination        as destination,
+                   a.engine_horse_power as engine_horse_power,
+                   a.engine_power       as engine_power,
+                   a.number_of_seats    as number_of_seats,
+                   a.price              as price,
+                   a.ttl                as ttl,
+                   a.used               as used,
+                   a.prod_year          as year,
+                   bt.name              as ban_type,
+                   ci.name              as city,
+                   co.name              as colour,
+                   cu.name              as currency,
+                   dm.name              as destination_measure,
+                   ft.name              as fuel_type,
+                   gbt.name             as gear_box_type,
+                   gt.name              as gear_type,
+                   m.name               as model,
+                   b.name               as brand
+              FROM tb_adss a
+         LEFT JOIN tb_ban_type bt
+                ON a.ban_type_id = bt.ban_type_code
+         LEFT JOIN tb_city ci
+                ON a.city_id = ci.city_code
+         LEFT JOIN tb_colour co
+                ON a.colour_id = co.colour_code
+         LEFT JOIN tb_currency cu
+                ON a.currency_id = cu.currency_code
+         LEFT JOIN tb_dest_measure dm
+                ON a.dest_measure_id = dm.dest_code
+         LEFT JOIN tb_fuel_type ft
+                ON a.fuel_type_id = ft.fuel_type_code
+         LEFT JOIN tb_gear_box_type gbt
+                ON a.gear_box_type_id = gbt.gear_box_code
+         LEFT JOIN tb_gear_type gt
+                ON a.gear_type_id = gt.gear_type_code
+         LEFT JOIN tb_model m
+                ON a.model_id = m.model_code
+         LEFT JOIN tb_brand b
+                ON m.brand_id = b.brand_code;
         ]]>
     </entry>
 
     <entry key="allinone.query.findAllAdsPageByPage">
         <![CDATA[
-            SELECT ads_link,
-                   destination,
-                   engine_horse_power,
-                   engine_power,
-                   image_link,
-                   number_of_seats,
-                   price,
-                   ttl,
-                   used,
-                   year,
-                   ban_type_id as ban_type_code,
-                   city_id as city_code,
-                   colour_id as colour_code,
-                   currency_id as currency_code,
-                   dest_id as destination_measure_code,
-                   fuel_type_id as fuel_type_code,
-                   gear_box_type_id as gear_box_type_code,
-                   gear_type_id as gear_type_code,
-                   model_id as model_code
-              FROM tb_ads
-             ORDER
-                BY ttl
-              DESC
+            SELECT a.ads_link           as ads_link,
+                   a.image_link         as image_link,
+                   a.destination        as destination,
+                   a.engine_horse_power as engine_horse_power,
+                   a.engine_power       as engine_power,
+                   a.number_of_seats    as number_of_seats,
+                   a.price              as price,
+                   a.ttl                as ttl,
+                   a.used               as used,
+                   a.prod_year          as year,
+                   bt.name              as ban_type,
+                   ci.name              as city,
+                   co.name              as colour,
+                   cu.name              as currency,
+                   dm.name              as destination_measure,
+                   ft.name              as fuel_type,
+                   gbt.name             as gear_box_type,
+                   gt.name              as gear_type,
+                   m.name               as model,
+                   b.name               as brand
+              FROM tb_adss a
+         LEFT JOIN tb_ban_type bt
+                ON a.ban_type_id = bt.ban_type_code
+         LEFT JOIN tb_city ci
+                ON a.city_id = ci.city_code
+         LEFT JOIN tb_colour co
+                ON a.colour_id = co.colour_code
+         LEFT JOIN tb_currency cu
+                ON a.currency_id = cu.currency_code
+         LEFT JOIN tb_dest_measure dm
+                ON a.dest_measure_id = dm.dest_code
+         LEFT JOIN tb_fuel_type ft
+                ON a.fuel_type_id = ft.fuel_type_code
+         LEFT JOIN tb_gear_box_type gbt
+                ON a.gear_box_type_id = gbt.gear_box_code
+         LEFT JOIN tb_gear_type gt
+                ON a.gear_type_id = gt.gear_type_code
+         LEFT JOIN tb_model m
+                ON a.model_id = m.model_code
+         LEFT JOIN tb_brand b
+                ON m.brand_id = b.brand_code
+          ORDER BY ttl DESC
              LIMIT :limit
             OFFSET :from;
+        ]]>
+    </entry>
+
+    <entry key="allinone.query.findCountOfAdsByAdsLink">
+        <![CDATA[
+            SELECT COUNT(a.ads_link)
+              FROM tb_adss a
+             WHERE a.ads_link = :adsLink;
         ]]>
     </entry>
 
