@@ -12,8 +12,7 @@ public enum FuelType {
     QAZ("Qaz", 3),
     ELEKTRO("Elektro", 4),
     HIBRID("Hibrid", 5),
-    PLUG_IN_HIBRID("Plug-in Hibrid", 6),
-    UNKNOWN("unknown", -1);
+    PLUG_IN_HIBRID("Plug-in Hibrid", 6);
 
     private final String value;
     private final int id;
@@ -35,7 +34,7 @@ public enum FuelType {
         return Arrays.stream(FuelType.values())
                 .filter(f -> f.getValue().equals(value))
                 .findFirst()
-                .orElse(FuelType.UNKNOWN);
+                .orElse(null);
     }
 
 }

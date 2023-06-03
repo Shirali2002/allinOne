@@ -285,8 +285,7 @@ C_MOTO("C.Moto", 395),
     ZONTES("Zontes", 143),
     ZOOMLION("Zoomlion", 164),
     ZUK("Zuk", 398),
-    ZX_AUTO("ZX Auto", 217),
-    UNKNOWN("unknown", -1);
+    ZX_AUTO("ZX Auto", 217);
 
     private final String value;
     private final int id;
@@ -308,7 +307,7 @@ C_MOTO("C.Moto", 395),
         return Arrays.stream(Brand.values())
                 .filter(b -> b.getValue().equals(value))
                 .findFirst()
-                .orElse(Brand.UNKNOWN);
+                .orElse(null);
     }
 
 }

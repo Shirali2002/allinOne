@@ -10,8 +10,7 @@ public enum GearBoxType {
     MEXANIKI("Mexaniki", 1),
     AVTOMAT("Avtomat", 2),
     ROBOTLASDIRILMIS("Robotlaşdırılmış", 3),
-    VARIATOR("Variator", 4),
-    UNKNOWN("unknown", -1);
+    VARIATOR("Variator", 4);
 
     private final String value;
     private final int id;
@@ -33,7 +32,7 @@ public enum GearBoxType {
         return Arrays.stream(GearBoxType.values())
                 .filter(g -> g.getValue().equals(value))
                 .findFirst()
-                .orElse(GearBoxType.UNKNOWN);
+                .orElse(null);
     }
 
 }

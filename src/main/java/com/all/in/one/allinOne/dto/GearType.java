@@ -9,8 +9,7 @@ public enum GearType {
 
     ARXA("Arxa", 1),
     ON("Ön", 2),
-    TAM("Tam", 3),
-    UNKNOWN("unknown", -1);
+    TAM("Tam", 3);
 
     private final String value;
     private final int id;
@@ -32,7 +31,7 @@ public enum GearType {
         return Arrays.stream(GearType.values())
                 .filter(g -> g.getValue().equals(value))
                 .findFirst()
-                .orElse(GearType.UNKNOWN);
+                .orElse(null);
     }
 
 }

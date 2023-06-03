@@ -24,8 +24,7 @@ public enum BanType {
     SEDAN("Sedan",1),
     UNIVERSAL("Universal",4),
     VAN("Van",19),
-    YUK_MASINI("Yük maşını",13),
-    UNKNOWN("unknown",-1);
+    YUK_MASINI("Yük maşını",13);
 
     private final String value;
     private final int id;
@@ -47,7 +46,7 @@ public enum BanType {
         return Arrays.stream(BanType.values())
                 .filter(b -> b.value.equals(value))
                 .findFirst()
-                .orElse(BanType.UNKNOWN);
+                .orElse(null);
     }
 
 }

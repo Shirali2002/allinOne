@@ -8,8 +8,7 @@ import java.util.Arrays;
 public enum DestinationMeasure {
 
     KM("km", 1),
-    MI("mi", 2),
-    UNKNOWN("unknown", -1);
+    MI("mi", 2);
 
     private final String value;
     private final int id;
@@ -31,7 +30,7 @@ public enum DestinationMeasure {
         return Arrays.stream(DestinationMeasure.values())
                 .filter(d -> d.getValue().equals(value))
                 .findFirst()
-                .orElse(DestinationMeasure.UNKNOWN);
+                .orElse(null);
     }
 
 }

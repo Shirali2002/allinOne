@@ -23,8 +23,7 @@ public enum Colour {
     MAVI("Mavi", 9),
     GOY("Göy", 3),
     BENOVSEYI("Bənövşəyi", 11),
-    QEHVEYI("Qəhvəyi", 10),
-    UNKNOWN("unknown", -1);
+    QEHVEYI("Qəhvəyi", 10);
 
     private final String value;
     private final int id;
@@ -46,7 +45,7 @@ public enum Colour {
         return Arrays.stream(Colour.values())
                 .filter(c -> c.getValue().equals(value))
                 .findFirst()
-                .orElse(Colour.UNKNOWN);
+                .orElse(null);
     }
 
 }
