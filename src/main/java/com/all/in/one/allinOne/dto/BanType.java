@@ -17,7 +17,7 @@ public enum BanType {
     MINIVAN("Minivan",5),
     MOPED("Moped",27),
     MOTOSIKLET("Motosiklet",20),
-    OFFROADER_SUV("Offroader",21),
+    OFFROADER_SUV("Offroader / SUV",21),
     PIKAP("Pikap",6),
     QOLFKAR("Qolfkar",22),
     RODSTER("Rodster",8),
