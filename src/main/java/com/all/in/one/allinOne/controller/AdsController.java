@@ -26,7 +26,7 @@ public class AdsController {
         return adsService.getAds(page, size);
     }
 
-    @PostMapping("/save")
+//    @PostMapping("/save")
     public void saveAds(@RequestBody Ads ads) {
         adsService.saveAds(ads);
     }

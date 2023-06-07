@@ -38,7 +38,7 @@ public class AuthController {
         authService.register(request);
     }
 
-    @PutMapping("/verify")
+//    @PutMapping("/verify")
     public void verifyRegisterUser(@RequestBody @Valid VerifyUserRequest request) {
         authService.verifyRegisterUser(request);
     }

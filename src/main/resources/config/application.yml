@@ -1,7 +1,7 @@
 spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://allinonedb.cwyzm5didqd7.us-east-1.rds.amazonaws.com:3306/allinonedb
+    url: jdbc:mysql://allinone.cn5daduvgses.us-east-1.rds.amazonaws.com:3306/allinonedb
     username: admin
     password: Admin1234
     hikari:
