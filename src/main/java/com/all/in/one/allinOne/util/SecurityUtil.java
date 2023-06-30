@@ -30,7 +30,7 @@ public final class SecurityUtil {
     public static String getAccessToken(UserDetails user, String requestUrl) {
         return JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.ACCESS_TOKEN_EXPIRE_TIME))
+//                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.ACCESS_TOKEN_EXPIRE_TIME))
                 .withIssuer(requestUrl)
                 .withClaim("roles", getRolesFromUser(user))
                 .sign(SecurityConstants.ALGORITHM);

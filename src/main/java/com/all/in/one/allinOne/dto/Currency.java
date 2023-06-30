@@ -9,8 +9,7 @@ public enum Currency {
 
     AZN("AZN", 1),
     USD("USD", 2),
-    EUR("EUR", 3),
-    UNKNOWN("unknown", -1);
+    EUR("EUR", 3);
 
     private final String value;
     private final int id;
@@ -32,7 +31,7 @@ public enum Currency {
         return Arrays.stream(Currency.values())
                 .filter(c -> c.getValue().equals(value))
                 .findFirst()
-                .orElse(Currency.UNKNOWN);
+                .orElse(null);
     }
 
 }

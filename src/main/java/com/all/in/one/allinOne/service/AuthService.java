@@ -90,15 +90,15 @@ public class AuthService {
         user.setSurname(request.getSurname());
         user.setEmail(request.getEmail());
 
-        user.setOtpCode(generateOtp()); //TODO: mapper
-        user.setEnabled(false);
+//        user.setOtpCode(generateOtp()); //TODO: mapper
+        user.setEnabled(true);
 
-        try {
-            emailProvider.sendRegistrationOtp(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new EmailProviderException("error occurred in email sending process.");
-        }
+//        try {
+//            emailProvider.sendRegistrationOtp(user);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw new EmailProviderException("error occurred in email sending process.");
+//        }
 
         userService.save(user);
     }

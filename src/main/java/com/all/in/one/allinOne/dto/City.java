@@ -83,8 +83,7 @@ public enum City {
     YEVLAX("Yevlax", 28),
     ZAQATALA("Zaqatala", 29),
     ZENGILAN("Zəngilan", 30),
-    ZERDAB("Zərdab", 31),
-    UNKNOWN("unknown", -1);
+    ZERDAB("Zərdab", 31);
 
     private final String value;
     private final int id;
@@ -106,7 +105,7 @@ public enum City {
         return Arrays.stream(City.values())
                 .filter(c -> c.getValue().equals(value))
                 .findFirst()
-                .orElse(City.UNKNOWN);
+                .orElse(null);
     }
 
 }

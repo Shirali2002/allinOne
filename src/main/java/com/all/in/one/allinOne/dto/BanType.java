@@ -17,15 +17,14 @@ public enum BanType {
     MINIVAN("Minivan",5),
     MOPED("Moped",27),
     MOTOSIKLET("Motosiklet",20),
-    OFFROADER_SUV("Offroader",21),
+    OFFROADER_SUV("Offroader / SUV",21),
     PIKAP("Pikap",6),
     QOLFKAR("Qolfkar",22),
     RODSTER("Rodster",8),
     SEDAN("Sedan",1),
     UNIVERSAL("Universal",4),
     VAN("Van",19),
-    YUK_MASINI("Yük maşını",13),
-    UNKNOWN("unknown",-1);
+    YUK_MASINI("Yük maşını",13);
 
     private final String value;
     private final int id;
@@ -47,7 +46,7 @@ public enum BanType {
         return Arrays.stream(BanType.values())
                 .filter(b -> b.value.equals(value))
                 .findFirst()
-                .orElse(BanType.UNKNOWN);
+                .orElse(null);
     }
 
 }

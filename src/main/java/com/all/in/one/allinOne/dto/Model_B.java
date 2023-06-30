@@ -1004,7 +1004,6 @@ public enum Model_B {
     CADILLAC_CT6("CT6", 38, 3448),
     CADILLAC_XT5("XT5", 38, 3449),
     CADILLAC_CT5("CT5", 38, 4393);
-//    UNKNOWN("unknown", -1, -1);
 
     private final String nick;
     private final int brandId;

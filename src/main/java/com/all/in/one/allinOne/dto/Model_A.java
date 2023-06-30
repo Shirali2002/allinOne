@@ -1002,8 +1002,7 @@ public enum Model_A {
     AUDI_TTS("TTS", 9, 2376),
     AUDI_RS7("RS7", 9, 2429),
     AUDI_S7("S7", 9, 2452),
-    AUDI_RS_Q3("RS Q3", 9, 2944),
-    UNKNOWN("unknown", -1, -1);
+    AUDI_RS_Q3("RS Q3", 9, 2944);
 
     private final String nick;
     private final int brandId;
@@ -1031,7 +1030,7 @@ public enum Model_A {
         return Arrays.stream(Model_A.values())
                 .filter(m -> m.getNick().equals(value))
                 .findFirst()
-                .orElse(Model_A.UNKNOWN);
+                .orElse(null);
     }
 
 }

@@ -1,9 +1,9 @@
 spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://allinonedb.cogkt6vcjbtv.us-east-2.rds.amazonaws.com:3306/allinonedb
+    url: jdbc:mysql://allinone.cn5daduvgses.us-east-1.rds.amazonaws.com:3306/allinonedb
     username: admin
-    password: AllInOne12345
+    password: Admin1234
     hikari:
       auto-commit: false
   mail:
