@@ -11,10 +11,11 @@ public interface AdsService {
 
     List<Ads> getFilteredAds(GetFilteredAdsRequest request);
 
-//    List<Ads> getFilteredAds(GetFilteredAdsRequest request, Integer page, Integer size);
-
     @Transactional
     void saveAds(Ads ads);
+
+    @Transactional
+    void deleteAds(String adsLink);
 
     Integer getCountOfAdsByAdsLink(String adsLink);
 }

@@ -7,35 +7,38 @@
     <select id="findAllAdsPageByPage" resultType="Ads">
         SELECT <include refid="adsBaseColumns"/>
         FROM tb_adss a
-        LEFT JOIN tb_ban_type bt ON a.ban_type_id = bt.ban_type_code
-        LEFT JOIN tb_city ci ON a.city_id = ci.city_code
-        LEFT JOIN tb_colour co ON a.colour_id = co.colour_code
-        LEFT JOIN tb_currency cu ON a.currency_id = cu.currency_code
-        LEFT JOIN tb_dest_measure dm ON a.dest_measure_id = dm.dest_code
-        LEFT JOIN tb_fuel_type ft ON a.fuel_type_id = ft.fuel_type_code
-        LEFT JOIN tb_gear_box_type gbt ON a.gear_box_type_id = gbt.gear_box_code
-        LEFT JOIN tb_gear_type gt ON a.gear_type_id = gt.gear_type_code
-        LEFT JOIN tb_model m ON a.model_id = m.model_code
-        LEFT JOIN tb_brand b ON m.brand_id = b.brand_code
-        ORDER BY ttl DESC LIMIT #{limit} OFFSET #{from};
+            LEFT JOIN tb_ban_type bt ON a.ban_type_id = bt.ban_type_code
+            LEFT JOIN tb_city ci ON a.city_id = ci.city_code
+            LEFT JOIN tb_colour co ON a.colour_id = co.colour_code
+            LEFT JOIN tb_currency cu ON a.currency_id = cu.currency_code
+            LEFT JOIN tb_dest_measure dm ON a.dest_measure_id = dm.dest_code
+            LEFT JOIN tb_fuel_type ft ON a.fuel_type_id = ft.fuel_type_code
+            LEFT JOIN tb_gear_box_type gbt ON a.gear_box_type_id = gbt.gear_box_code
+            LEFT JOIN tb_gear_type gt ON a.gear_type_id = gt.gear_type_code
+            LEFT JOIN tb_model m ON a.model_id = m.model_code
+            LEFT JOIN tb_brand b ON m.brand_id = b.brand_code
+        WHERE a.is_active = 1
+        ORDER BY a.ttl
+        DESC LIMIT #{limit}
+        OFFSET #{from};
     </select>
 
     <select id="findAllAdsByFilter" resultType="Ads">
         SELECT <include refid="adsBaseColumns"/>
         FROM tb_adss a
-        LEFT JOIN tb_ban_type bt ON a.ban_type_id = bt.ban_type_code
-        LEFT JOIN tb_city ci ON a.city_id = ci.city_code
-        LEFT JOIN tb_colour co ON a.colour_id = co.colour_code
-        LEFT JOIN tb_currency cu ON a.currency_id = cu.currency_code
-        LEFT JOIN tb_dest_measure dm ON a.dest_measure_id = dm.dest_code
-        LEFT JOIN tb_fuel_type ft ON a.fuel_type_id = ft.fuel_type_code
-        LEFT JOIN tb_gear_box_type gbt ON a.gear_box_type_id = gbt.gear_box_code
-        LEFT JOIN tb_gear_type gt ON a.gear_type_id = gt.gear_type_code
-        LEFT JOIN tb_model m ON a.model_id = m.model_code
-        LEFT JOIN tb_brand b ON m.brand_id = b.brand_code
+            LEFT JOIN tb_ban_type bt ON a.ban_type_id = bt.ban_type_code
+            LEFT JOIN tb_city ci ON a.city_id = ci.city_code
+            LEFT JOIN tb_colour co ON a.colour_id = co.colour_code
+            LEFT JOIN tb_currency cu ON a.currency_id = cu.currency_code
+            LEFT JOIN tb_dest_measure dm ON a.dest_measure_id = dm.dest_code
+            LEFT JOIN tb_fuel_type ft ON a.fuel_type_id = ft.fuel_type_code
+            LEFT JOIN tb_gear_box_type gbt ON a.gear_box_type_id = gbt.gear_box_code
+            LEFT JOIN tb_gear_type gt ON a.gear_type_id = gt.gear_type_code
+            LEFT JOIN tb_model m ON a.model_id = m.model_code
+            LEFT JOIN tb_brand b ON m.brand_id = b.brand_code
 
         <where>
-            1 = 1
+            a.is_active = 1
 
             <if test="model != null"> AND a.model_id = #{model} </if>
             <if test="model == null and brand != null"> AND m.brand_id = #{brand} </if>
@@ -62,7 +65,9 @@
             <if test="numberOfSeats != null"> AND a.number_of_seats = #{numberOfSeats} </if>
         </where>
 
-        ORDER BY ttl DESC LIMIT #{size} OFFSET #{page};
+        ORDER BY a.ttl
+        DESC LIMIT #{size}
+        OFFSET #{page};
     </select>
 
     <select id="findCountOfAdsByAdsLink" resultType="Integer">
@@ -99,6 +104,12 @@
                 (SELECT m.model_code FROM tb_model m LEFT JOIN tb_brand b ON m.brand_id = b.brand_code
                 WHERE m.name = #{model, jdbcType=NVARCHAR} AND b.name = #{brand, jdbcType=NVARCHAR}));
     </insert>
+
+    <update id="deactivate">
+        UPDATE allinonedb.tb_adss
+        SET IS_ACTIVE = 0
+        WHERE ADS_LINK = #{adsLink, jdbcType=NVARCHAR};
+    </update>
 
     <sql id="adsBaseColumns">
         a.ads_link           as ads_link,

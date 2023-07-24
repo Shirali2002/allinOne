@@ -32,16 +32,16 @@ public class AdsServiceImpl implements AdsService {
         return adsMapper.findAllAdsByFilter(request);
     }
 
-//    @Override
-//    public List<Ads> getFilteredAds(GetFilteredAdsRequest request, Integer page, Integer size) {
-//        Integer from = size*(page-1);
-//        return adsMapper.findAllAdsByFilter(size, from, request);
-//    }
-
     @Override
     @Transactional
     public void saveAds(Ads ads) {
         adsMapper.insert(ads);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAds(String adsLink) {
+        adsMapper.deactivate(adsLink);
     }
 
     @Override

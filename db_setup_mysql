@@ -1,0 +1,176 @@
+create table tb_ban_type
+(
+    id         bigint auto_increment,
+    ban_type_code int          null,
+    name       varchar(255) null,
+    constraint tb_ban_type_pk
+        primary key (id),
+    constraint tb_ban_type_pk2
+        unique (ban_type_code)
+);
+
+create table tb_brand
+(
+    id         bigint auto_increment,
+    brand_code int          null,
+    name       varchar(255) null,
+    constraint tb_brand_pk
+        primary key (id),
+    constraint tb_brand_pk2
+        unique (brand_code)
+);
+
+create table tb_city
+(
+    id         bigint auto_increment,
+    city_code int          null,
+    name       varchar(255) null,
+    constraint tb_city_pk
+        primary key (id),
+    constraint tb_city_pk2
+        unique (city_code)
+);
+
+create table tb_colour
+(
+    id         bigint auto_increment,
+    colour_code int          null,
+    name       varchar(255) null,
+    constraint tb_colour_pk
+        primary key (id),
+    constraint tb_colour_pk2
+        unique (colour_code)
+);
+
+create table tb_currency
+(
+    id         bigint auto_increment,
+    currency_code int          null,
+    name       varchar(255) null,
+    constraint tb_currency_pk
+        primary key (id),
+    constraint tb_currency_pk2
+        unique (currency_code)
+);
+
+create table tb_dest_measure
+(
+    id         bigint auto_increment,
+    dest_code int          null,
+    name       varchar(255) null,
+    constraint tb_dest_measure_pk
+        primary key (id),
+    constraint tb_dest_measure_pk2
+        unique (dest_code)
+);
+
+create table tb_fuel_type
+(
+    id         bigint auto_increment,
+    fuel_type_code int          null,
+    name       varchar(255) null,
+    constraint tb_fuel_type_pk
+        primary key (id),
+    constraint tb_fuel_type_pk2
+        unique (fuel_type_code)
+);
+
+create table tb_gear_box_type
+(
+    id         bigint auto_increment,
+    gear_box_code int          null,
+    name       varchar(255) null,
+    constraint tb_gear_box_type_pk
+        primary key (id),
+    constraint tb_gear_box_type_pk2
+        unique (gear_box_code)
+);
+
+create table tb_gear_type
+(
+    id         bigint auto_increment,
+    gear_type_code int          null,
+    name       varchar(255) null,
+    constraint tb_gear_type_pk
+        primary key (id),
+    constraint tb_gear_type_pk2
+        unique (gear_type_code)
+);
+
+create table tb_model
+(
+    id         bigint auto_increment,
+    model_code int          null,
+    name       varchar(255) null,
+    brand_id   int          null,
+    constraint tb_model_pk
+        primary key (id),
+    constraint tb_model_pk2
+        unique (model_code),
+    constraint tb_model_tb_brand_brand_code_fk
+        foreign key (brand_id) references tb_brand (brand_code)
+);
+
+create table tb_user
+(
+    id                   bigint auto_increment,
+    email                varchar(255) not null,
+    enabled              bit          null,
+    name                 varchar(255) null,
+    otp                  int          null,
+    password             varchar(255) null,
+    reset_enabled        bit          null,
+    reset_password_token varchar(64)  null,
+    surname              varchar(255) null,
+    verification_code    varchar(64)  null,
+    constraint tb_user_pk
+        primary key (id),
+    constraint tb_user_pk2
+        unique (email)
+);
+
+create table tb_adss
+(
+    ads_link           varchar(255) not null,
+    image_link         text         not null,
+    destination        int          null,
+    engine_horse_power int          null,
+    engine_power       int          null,
+    number_of_seats    tinyint      null,
+    price              int          null,
+    ttl                timestamp    null,
+    used               bit          null,
+    prod_year          year         null,
+    ban_type_id        int          null,
+    city_id            int          null,
+    colour_id          int          null,
+    currency_id        int          null,
+    dest_measure_id    int          null,
+    fuel_type_id       int          null,
+    gear_box_type_id   int          null,
+    gear_type_id       int          null,
+    model_id           int          null,
+    constraint tb_adss_pk
+        primary key (ads_link),
+    constraint tb_adss_tb_ban_type_ban_type_code_fk
+        foreign key (ban_type_id) references tb_ban_type (ban_type_code),
+    constraint tb_adss_tb_city_city_code_fk
+        foreign key (city_id) references tb_city (city_code),
+    constraint tb_adss_tb_colour_colour_code_fk
+        foreign key (colour_id) references tb_colour (colour_code),
+    constraint tb_adss_tb_currency_currency_code_fk
+        foreign key (currency_id) references tb_currency (currency_code),
+    constraint tb_adss_tb_dest_measure__fk
+        foreign key (dest_measure_id) references tb_dest_measure (dest_code),
+    constraint tb_adss_tb_fuel_type_fuel_type_code_fk
+        foreign key (fuel_type_id) references tb_fuel_type (fuel_type_code),
+    constraint tb_adss_tb_gear_box_type_gear_box_code_fk
+        foreign key (gear_box_type_id) references tb_gear_box_type (gear_box_code),
+    constraint tb_adss_tb_gear_type_gear_type_code_fk
+        foreign key (gear_type_id) references tb_gear_type (gear_type_code),
+    constraint tb_adss_tb_model_model_code_fk
+        foreign key (model_id) references tb_model (model_code)
+);
+
+alter table tb_adss
+    add is_active boolean default true not null;
