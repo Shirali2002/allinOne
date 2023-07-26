@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -51,6 +53,14 @@ public class UtilityController {
     @GetMapping("dashboard/models/{brandId}")
     public GetDashboardModelsResponse getDashboardModels(@PathVariable Integer brandId) {
         return utilityService.getDashboardModels(brandId);
+    }
+
+//    @PostMapping("mail")
+    public void sendRegistrationOtpMail(@RequestParam String email,
+                                        @RequestParam String name,
+                                        @RequestParam String surname,
+                                        @RequestParam Integer otpCode) {
+        utilityService.sendRegistrationOtpMail(email, name, surname, otpCode);
     }
 
 }

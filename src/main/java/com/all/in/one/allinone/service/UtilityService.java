@@ -22,4 +22,6 @@ public interface UtilityService {
     GetDashboardModelsResponse getDashboardModels();
 
     GetDashboardModelsResponse getDashboardModels(Integer brandCode);
+
+    void sendRegistrationOtpMail(String email, String name, String surname, Integer otpCode);
 }

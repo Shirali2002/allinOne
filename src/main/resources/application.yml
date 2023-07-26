@@ -12,6 +12,7 @@ spring:
     port: 587
     username: todolistorganization@gmail.com
     password: rgankytzymfbyphy
+    protocol: smtp
     properties:
       mail:
         smtp:
@@ -22,7 +23,7 @@ spring:
 parse:
   turbo-az:
     cron: 0 0/2 * * * *
-    enable-schedule: true
+    enable-schedule: false
 
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
