@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.all.in.one.allinone.mapper.mybatisMapper.UtilityMapper">
+
+    <!-- ++++++++++++++++++++++++++Currency+++++++++++++++++++++++++++++ -->
+
+    <insert id="insertCurrency" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO allinonedb.tb_currency (CURRENCY_CODE, NAME)
+        VALUES (#{currencyCode},
+                #{name, jdbcType=NVARCHAR});
+    </insert>
+
+    <select id="findAllCurrency" resultType="Currency">
+        SELECT <include refid="currencyBaseColumns"/>
+        FROM allinonedb.tb_currency cu;
+    </select>
+
+    <sql id="currencyBaseColumns">
+        cu.id,
+        cu.currency_code,
+        cu.name
+    </sql>
+
+    <!-- ++++++++++++++++++++++++++BanType+++++++++++++++++++++++++++++ -->
+
+    <insert id="insertBanType" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO allinonedb.tb_ban_type (BAN_TYPE_CODE, NAME)
+        VALUES (#{banTypeCode},
+                #{name, jdbcType=NVARCHAR});
+    </insert>
+
+    <select id="findAllBanType" resultType="BanType">
+        SELECT <include refid="banTypeBaseColumns"/>
+        FROM allinonedb.tb_ban_type bt;
+    </select>
+
+    <sql id="banTypeBaseColumns">
+        bt.id,
+        bt.ban_type_code,
+        bt.name
+    </sql>
+
+    <!-- +++++++++++++++++++++++++++Brand++++++++++++++++++++++++++++ -->
+
+    <insert id="insertBrand" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO allinonedb.tb_brand (BRAND_CODE, NAME)
+        VALUES (#{brandCode},
+                #{name, jdbcType=NVARCHAR});
+    </insert>
+
+    <select id="findAllBrand" resultType="Brand">
+        SELECT <include refid="brandBaseColumns"/>
+        FROM allinonedb.tb_brand b;
+    </select>
+
+    <sql id="brandBaseColumns">
+        b.id,
+        b.brand_code,
+        b.name
+    </sql>
+
+    <!-- ++++++++++++++++++++++++++City+++++++++++++++++++++++++++++ -->
+
+    <insert id="insertCity" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO allinonedb.tb_city (CITY_CODE, NAME)
+        VALUES (#{cityCode},
+                #{name, jdbcType=NVARCHAR});
+    </insert>
+
+    <select id="findAllCity" resultType="City">
+        SELECT <include refid="cityBaseColumns"/>
+        FROM allinonedb.tb_city ci;
+    </select>
+
+    <sql id="cityBaseColumns">
+        ci.id,
+        ci.city_code,
+        ci.name
+    </sql>
+
+    <!-- +++++++++++++++++++++++++Colour++++++++++++++++++++++++++++++ -->
+
+    <insert id="insertColour" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO allinonedb.tb_colour (COLOUR_CODE, NAME)
+        VALUES (#{colourCode},
+                #{name, jdbcType=NVARCHAR});
+    </insert>
+
+    <select id="findAllColour" resultType="Colour">
+        SELECT <include refid="colourBaseColumns"/>
+        FROM allinonedb.tb_colour co;
+    </select>
+
+    <sql id="colourBaseColumns">
+        co.id,
+        co.colour_code,
+        co.name
+    </sql>
+
+    <!-- +++++++++++++++++++++++++++DestinationMeasure++++++++++++++++++++++++++++ -->
+
+    <insert id="insertDestinationMeasure" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO allinonedb.tb_dest_measure (DEST_CODE, NAME)
+        VALUES (#{destCode},
+                #{name, jdbcType=NVARCHAR});
+    </insert>
+
+    <select id="findAllDestinationMeasure" resultType="DestinationMeasure">
+        SELECT <include refid="destinationMeasureBaseColumns"/>
+        FROM allinonedb.tb_dest_measure dm;
+    </select>
+
+    <sql id="destinationMeasureBaseColumns">
+        dm.id,
+        dm.dest_code,
+        dm.name
+    </sql>
+
+    <!-- ++++++++++++++++++++++++++++++FuelType+++++++++++++++++++++++++ -->
+
+    <insert id="insertFuelType" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO allinonedb.tb_fuel_type (FUEL_TYPE_CODE, NAME)
+        VALUES (#{fuelTypeCode},
+                #{name, jdbcType=NVARCHAR});
+    </insert>
+
+    <select id="findAllFuelType" resultType="FuelType">
+        SELECT <include refid="fuelTypeBaseColumns"/>
+        FROM allinonedb.tb_fuel_type ft;
+    </select>
+
+    <sql id="fuelTypeBaseColumns">
+        ft.id,
+        ft.fuel_type_code,
+        ft.name
+    </sql>
+
+    <!-- +++++++++++++++++++++++++++GearBoxType++++++++++++++++++++++++++++ -->
+
+    <insert id="insertGearBoxType" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO allinonedb.tb_gear_box_type (GEAR_BOX_CODE, NAME)
+        VALUES (#{gearBoxCode},
+                #{name, jdbcType=NVARCHAR});
+    </insert>
+
+    <select id="findAllGearBoxType" resultType="GearBoxType">
+        SELECT <include refid="gearBoxTypeBaseColumns"/>
+        FROM allinonedb.tb_gear_box_type gbt;
+    </select>
+
+    <sql id="gearBoxTypeBaseColumns">
+        gbt.id,
+        gbt.gear_box_code,
+        gbt.name
+    </sql>
+
+    <!-- +++++++++++++++++++++++FuelType+++++++++++++++++++++++++++++ -->
+
+    <insert id="insertGearType" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO allinonedb.tb_gear_type (GEAR_TYPE_CODE, NAME)
+        VALUES (#{gearTypeCode},
+                #{name, jdbcType=NVARCHAR});
+    </insert>
+
+    <select id="findAllGearType" resultType="GearType">
+        SELECT <include refid="gearTypeBaseColumns"/>
+        FROM allinonedb.tb_gear_type gt;
+    </select>
+
+    <sql id="gearTypeBaseColumns">
+        gt.id,
+        gt.gear_type_code,
+        gt.name
+    </sql>
+
+    <!-- +++++++++++++++++++++++Model++++++++++++++++++++++++++++++++ -->
+
+    <insert id="insertModel" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+        INSERT INTO allinonedb.tb_model (MODEL_CODE, NAME, BRAND_ID)
+        VALUES (#{modelCode},
+                #{name, jdbcType=NVARCHAR},
+                #{brandCode});
+    </insert>
+
+    <select id="findAllModel" resultType="Model">
+        SELECT <include refid="modelBaseColumns"/>
+        FROM allinonedb.tb_model m;
+    </select>
+
+    <select id="findAllModelByBrandCode" resultType="Model">
+        SELECT <include refid="modelBaseColumns"/>
+        FROM allinonedb.tb_model m
+        WHERE brand_id = #{brandCode};
+    </select>
+
+    <sql id="modelBaseColumns">
+        m.id,
+        m.model_code,
+        m.name,
+        m.brand_id as brand_code
+    </sql>
+
+</mapper>
