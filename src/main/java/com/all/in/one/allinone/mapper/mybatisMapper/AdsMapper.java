@@ -16,12 +16,10 @@ public interface AdsMapper {
 
     List<Ads> findAllAdsByFilter(GetFilteredAdsRequest getFilteredAdsRequest);
 
-//    List<Ads> findAllAdsByFilter(@Param("limit") Integer limit,
-//                                 @Param("from") Integer from,
-//                                 @Param("request") GetFilteredAdsRequest getFilteredAdsRequest);
-
     Integer findCountOfAdsByAdsLink(@Param("adsLink") String adsLink);
 
     void insert(Ads ads);
+
+    void deactivate(@Param("adsLink") String adsLink);
 
 }

@@ -18,12 +18,16 @@ import com.all.in.one.allinone.model.enums.turboAzEnums.Model_C;
 import com.all.in.one.allinone.model.enums.turboAzEnums.Model_D;
 import com.all.in.one.allinone.model.mybatis.Ads;
 import com.all.in.one.allinone.model.mybatis.Model;
+import com.all.in.one.allinone.model.mybatis.User;
 import com.all.in.one.allinone.service.AdsService;
 import com.all.in.one.allinone.service.UtilityService;
+import com.all.in.one.allinone.util.EmailProvider;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +38,7 @@ public class UtilityServiceImpl implements UtilityService {
 
     private final AdsService adsService;
     private final UtilityMapper utilityMapper;
+    private final EmailProvider emailProvider;
 
     @Override
     @Transactional
@@ -182,6 +187,21 @@ public class UtilityServiceImpl implements UtilityService {
     public GetDashboardModelsResponse getDashboardModels(Integer brandCode) {
         List<Model> models = utilityMapper.findAllModelByBrandCode(brandCode);
         return GetDashboardModelsResponse.of(models);
+    }
+
+    @Override
+    public void sendRegistrationOtpMail(String email, String name, String surname, Integer otpCode) {
+        User user = new User();
+        user.setEmail(email);
+        user.setName(name);
+        user.setSurname(surname);
+        user.setOtpCode(otpCode);
+
+        try {
+            emailProvider.sendRegistrationOtp(user);
+        } catch (MessagingException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void saveModel(Integer modelId, String name, Integer brandCode) {
