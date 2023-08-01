@@ -24,6 +24,8 @@ import com.all.in.one.allinone.service.UtilityService;
 import com.all.in.one.allinone.util.EmailProvider;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +36,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UtilityServiceImpl implements UtilityService {
 
     private final AdsService adsService;
@@ -162,6 +165,7 @@ public class UtilityServiceImpl implements UtilityService {
     }
 
     @Override
+    @Cacheable(value = "dashboardFieldsCache", key = "{'dashboardFields'}")
     public GetDashboardFieldsResponse getDashboardFields() {
         GetDashboardFieldsResponse response = new GetDashboardFieldsResponse();
         response.setBanTypes(utilityMapper.findAllBanType());
@@ -178,6 +182,7 @@ public class UtilityServiceImpl implements UtilityService {
     }
 
     @Override
+    @Cacheable(value = "dashboardModelsCache", key = "{'dashboardModels'}")
     public GetDashboardModelsResponse getDashboardModels() {
         List<Model> models = utilityMapper.findAllModel();
         return GetDashboardModelsResponse.of(models);
