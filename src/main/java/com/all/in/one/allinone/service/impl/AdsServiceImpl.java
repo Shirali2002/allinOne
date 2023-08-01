@@ -6,6 +6,7 @@ import com.all.in.one.allinone.model.mybatis.Ads;
 import com.all.in.one.allinone.service.AdsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ public class AdsServiceImpl implements AdsService {
     private final AdsMapper adsMapper;
 
     @Override
+    @Cacheable(value = "adsPagesCache", key = "{'adsPage' + #page + '-size' + #size}")
     public List<Ads> getAds(Integer page, Integer size) {
         Integer from = size*(page-1);
         return adsMapper.findAllAdsPageByPage(size, from);

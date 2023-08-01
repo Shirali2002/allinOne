@@ -11,10 +11,11 @@ import com.all.in.one.allinone.model.mybatis.GearBoxType;
 import com.all.in.one.allinone.model.mybatis.GearType;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
-public class GetDashboardFieldsResponse {
+public class GetDashboardFieldsResponse implements Serializable {
 
     private List<BanType> banTypes;
     private List<City> cities;

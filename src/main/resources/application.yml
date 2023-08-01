@@ -7,6 +7,10 @@ spring:
     hikari:
 #      allowMultiQueries: true
       auto-commit: false
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
   mail:
     host: smtp.gmail.com
     port: 587
@@ -20,10 +24,15 @@ spring:
           starttls:
             enable: true
 
-parse:
+project:
+  enable-cache: true
+  enable-parse: true
   turbo-az:
     cron: 0 0/2 * * * *
-    enable-schedule: false
+    enable-parse: true
+#  masin-az:
+#    cron: 0 0/2 * * * *
+#    enable-parse: false
 
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
