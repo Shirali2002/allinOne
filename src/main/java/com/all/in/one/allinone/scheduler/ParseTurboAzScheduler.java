@@ -37,12 +37,17 @@ public class ParseTurboAzScheduler {
     private void clearAdsPagesCache() {
         if (Objects.isNull(cacheManager)) return;
 
-        Cache cache = cacheManager.getCache("adsPagesCache");
+        clearCacheByName("adsPagesCache");
+        clearCacheByName("adsFilteredPagesCache");
+    }
+
+    private void clearCacheByName(String name) {
+        Cache cache = cacheManager.getCache(name);
 
         if (Objects.isNull(cache)) return;
 
         cache.clear();
-        log.info("adsPagesCache cleared.");
+        log.info("{} cleared.", cache.getName());
     }
 
 }

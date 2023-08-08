@@ -41,6 +41,8 @@ public class RedisCacheConfig {
                 .withCacheConfiguration("dashboardModelsCache",
                         RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofDays(365)))
                 .withCacheConfiguration("adsPagesCache",
+                        RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofHours(1)))
+                .withCacheConfiguration("adsFilteredPagesCache",
                         RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofHours(1)));
     }
 
