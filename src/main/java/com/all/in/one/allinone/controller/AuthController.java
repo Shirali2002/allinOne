@@ -3,7 +3,7 @@ package com.all.in.one.allinone.controller;
 import com.all.in.one.allinone.model.dto.request.LoginRequest;
 import com.all.in.one.allinone.model.dto.request.RegisterRequest;
 import com.all.in.one.allinone.model.dto.response.AuthenticationResponse;
-import com.all.in.one.allinone.service.AuthService;
+import com.all.in.one.allinone.service.auth.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

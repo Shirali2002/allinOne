@@ -17,38 +17,25 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration {
 
     private final String[] WHITE_LIST = new String[]{
-            // AuthController
             "/auth/**",
-            "/auth/user/**",
-//            "/login/**",
-//            "/sign-in/**",
-
-            // AdsController
+//            "/auth/user/**",
             "/ads/**",
-
-            // UtilityController
             "/util/**",
 
-//            "/util/fill/**",
-//            "/util/fill/model/**",
-//            "/util/fill/brand/**",
-//            "/util/fill/ads/**",
-//            "/util/dashboard/fields/**",
-//            "/util/dashboard/models/**",
-
-//            "/token/refresh/**",
-//            "/register/**",
-//            "/verify/**",
-//            "/check/reset-password/**",
-//            "/process/reset-password/**",
-//            "/reset-password/**",
-
-            // others
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html",
             "/v2/api-docs/**",
             "/swagger-resources/**",
+    };
+
+    private final String[] USER_LIST = new String[]{
+//            "/ads/**",
+//            "/util/**"
+    };
+
+    private final String[] ADMIN_LIST = new String[]{
+            "/admin/**"
     };
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -62,6 +49,10 @@ public class SecurityConfiguration {
                 .csrf()
                 .disable()
                 .authorizeHttpRequests()
+//                .requestMatchers(ADMIN_LIST)
+//                .hasRole("ADMIN")
+//                .requestMatchers(USER_LIST)
+//                .hasRole("USER")
                 .requestMatchers(WHITE_LIST)
                 .permitAll()
                 .anyRequest()

@@ -1,4 +1,4 @@
-package com.all.in.one.allinone.service;
+package com.all.in.one.allinone.service.auth;
 
 import com.all.in.one.allinone.model.dto.request.LoginRequest;
 import com.all.in.one.allinone.model.dto.request.RegisterRequest;

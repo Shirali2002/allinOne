@@ -1,9 +1,8 @@
-package com.all.in.one.allinone.service.impl;
+package com.all.in.one.allinone.service.ads;
 
 import com.all.in.one.allinone.mapper.mybatisMapper.AdsMapper;
 import com.all.in.one.allinone.model.dto.request.GetFilteredAdsRequest;
 import com.all.in.one.allinone.model.mybatis.Ads;
-import com.all.in.one.allinone.service.AdsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;

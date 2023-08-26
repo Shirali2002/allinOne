@@ -1,8 +1,7 @@
-package com.all.in.one.allinone.service.impl;
+package com.all.in.one.allinone.service.user;
 
 import com.all.in.one.allinone.mapper.mybatisMapper.UserMapper;
 import com.all.in.one.allinone.model.mybatis.User;
-import com.all.in.one.allinone.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

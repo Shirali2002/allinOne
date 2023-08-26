@@ -3,7 +3,7 @@ package com.all.in.one.allinone.controller;
 import com.all.in.one.allinone.model.dto.request.GetFilteredAdsRequest;
 import com.all.in.one.allinone.model.error.ErrorMessages;
 import com.all.in.one.allinone.model.mybatis.Ads;
-import com.all.in.one.allinone.service.AdsService;
+import com.all.in.one.allinone.service.ads.AdsService;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;

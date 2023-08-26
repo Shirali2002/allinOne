@@ -1,4 +1,4 @@
-package com.all.in.one.allinone.service;
+package com.all.in.one.allinone.service.ads;
 
 import com.all.in.one.allinone.model.dto.request.GetFilteredAdsRequest;
 import com.all.in.one.allinone.model.mybatis.Ads;

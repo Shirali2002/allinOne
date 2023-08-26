@@ -25,8 +25,8 @@ spring:
             enable: true
 
 project:
-  enable-cache: true
-  enable-parse: true
+  enable-cache: false
+  enable-parse: false
   turbo-az:
     cron: 0 0/2 * * * *
     enable-parse: true

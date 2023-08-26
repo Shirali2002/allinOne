@@ -1,6 +1,6 @@
 package com.all.in.one.allinone.scheduler;
 
-import com.all.in.one.allinone.parser.TurboAzParser;
+import com.all.in.one.allinone.parser.turboAz.TurboAzAdsParser;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import java.util.Objects;
 @AllArgsConstructor
 public class ParseTurboAzScheduler {
 
-    private final TurboAzParser turboAzParser;
+    private final TurboAzAdsParser turboAzAdsParser;
     private CacheManager cacheManager;
 
     @Async
@@ -27,7 +27,7 @@ public class ParseTurboAzScheduler {
 
         while (page > 0 && page < 20) {
             log.info("parsing page {}", page);
-            page = turboAzParser.parse(page);
+            page = turboAzAdsParser.parse(page);
         }
         log.info("parse finished");
 

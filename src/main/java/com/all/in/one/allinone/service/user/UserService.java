@@ -1,4 +1,4 @@
-package com.all.in.one.allinone.service;
+package com.all.in.one.allinone.service.user;
 
 
 import com.all.in.one.allinone.model.mybatis.User;
