@@ -36,9 +36,11 @@ public class AdsController {
         return adsService.getAds(page, size);
     }
 
-    @PostMapping("filter")
-    public List<Ads> getFilteredAds(@RequestBody GetFilteredAdsRequest request) {
-        return adsService.getFilteredAds(request);
+    @GetMapping("/{page}/size/{size}/filter")
+    public List<Ads> getFilteredAds(@PathVariable @Min(value = 1, message = ErrorMessages.PAGE_MUST_BE_GREATER_THAN_ZERO) Integer page,
+                                    @PathVariable @Min(value = 1, message = ErrorMessages.SIZE_MUST_BE_GREATER_THAN_ZERO) Integer size,
+                                    GetFilteredAdsRequest request) {
+        return adsService.getFilteredAds(page, size, request);
     }
 
 //    @PostMapping("/save")

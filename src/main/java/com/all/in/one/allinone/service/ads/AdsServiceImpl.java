@@ -27,11 +27,9 @@ public class AdsServiceImpl implements AdsService {
 
     @Override
     @Cacheable(value = "adsFilteredPagesCache", key = "{'filteredPage' + #request.toString()}")
-    public List<Ads> getFilteredAds(GetFilteredAdsRequest request) {
-        Integer size = request.getSize();
-        Integer from = size*(request.getPage()-1);
-        request.setPage(from);
-        return adsMapper.findAllAdsByFilter(request);
+    public List<Ads> getFilteredAds(Integer page, Integer size, GetFilteredAdsRequest request) {
+        Integer from = size*(page-1);
+        return adsMapper.findAllAdsByFilter(size, from, request);
     }
 
     @Override
