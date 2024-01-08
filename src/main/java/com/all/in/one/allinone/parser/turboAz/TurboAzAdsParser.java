@@ -1,9 +1,9 @@
-package com.all.in.one.allinone.parser;
+package com.all.in.one.allinone.parser.turboAz;
 
 import com.all.in.one.allinone.model.error.exception.JsoupConnectException;
 import com.all.in.one.allinone.model.error.exception.ParseException;
 import com.all.in.one.allinone.model.mybatis.Ads;
-import com.all.in.one.allinone.service.AdsService;
+import com.all.in.one.allinone.service.ads.AdsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
@@ -26,7 +26,7 @@ import static com.all.in.one.allinone.util.Constants.TA_URL;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class TurboAzParser {
+public class TurboAzAdsParser {
 
     private final AdsService adsService;
 

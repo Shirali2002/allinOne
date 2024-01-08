@@ -1,11 +1,11 @@
-package com.all.in.one.allinone.service.impl;
+package com.all.in.one.allinone.service.ads;
 
 import com.all.in.one.allinone.mapper.mybatisMapper.AdsMapper;
 import com.all.in.one.allinone.model.dto.request.GetFilteredAdsRequest;
 import com.all.in.one.allinone.model.mybatis.Ads;
-import com.all.in.one.allinone.service.AdsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,17 +19,17 @@ public class AdsServiceImpl implements AdsService {
     private final AdsMapper adsMapper;
 
     @Override
+    @Cacheable(value = "adsPagesCache", key = "{'adsPage' + #page + '-size' + #size}")
     public List<Ads> getAds(Integer page, Integer size) {
         Integer from = size*(page-1);
         return adsMapper.findAllAdsPageByPage(size, from);
     }
 
     @Override
-    public List<Ads> getFilteredAds(GetFilteredAdsRequest request) {
-        Integer size = request.getSize();
-        Integer from = size*(request.getPage()-1);
-        request.setPage(from);
-        return adsMapper.findAllAdsByFilter(request);
+    @Cacheable(value = "adsFilteredPagesCache", key = "{'filteredPage' + #request.toString()}")
+    public List<Ads> getFilteredAds(Integer page, Integer size, GetFilteredAdsRequest request) {
+        Integer from = size*(page-1);
+        return adsMapper.findAllAdsByFilter(size, from, request);
     }
 
     @Override

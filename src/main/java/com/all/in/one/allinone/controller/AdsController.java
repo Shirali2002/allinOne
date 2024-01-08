@@ -3,7 +3,7 @@ package com.all.in.one.allinone.controller;
 import com.all.in.one.allinone.model.dto.request.GetFilteredAdsRequest;
 import com.all.in.one.allinone.model.error.ErrorMessages;
 import com.all.in.one.allinone.model.mybatis.Ads;
-import com.all.in.one.allinone.service.AdsService;
+import com.all.in.one.allinone.service.ads.AdsService;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
@@ -36,9 +36,11 @@ public class AdsController {
         return adsService.getAds(page, size);
     }
 
-    @PostMapping("filter")
-    public List<Ads> getFilteredAds(@RequestBody GetFilteredAdsRequest request) {
-        return adsService.getFilteredAds(request);
+    @GetMapping("/{page}/size/{size}/filter")
+    public List<Ads> getFilteredAds(@PathVariable @Min(value = 1, message = ErrorMessages.PAGE_MUST_BE_GREATER_THAN_ZERO) Integer page,
+                                    @PathVariable @Min(value = 1, message = ErrorMessages.SIZE_MUST_BE_GREATER_THAN_ZERO) Integer size,
+                                    GetFilteredAdsRequest request) {
+        return adsService.getFilteredAds(page, size, request);
     }
 
 //    @PostMapping("/save")

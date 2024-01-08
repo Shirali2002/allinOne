@@ -24,7 +24,8 @@
     </select>
 
     <select id="findAllAdsByFilter" resultType="Ads">
-        SELECT <include refid="adsBaseColumns"/>
+        SELECT
+        <include refid="adsBaseColumns"/>
         FROM tb_adss a
             LEFT JOIN tb_ban_type bt ON a.ban_type_id = bt.ban_type_code
             LEFT JOIN tb_city ci ON a.city_id = ci.city_code
@@ -40,34 +41,90 @@
         <where>
             a.is_active = 1
 
-            <if test="model != null"> AND a.model_id = #{model} </if>
-            <if test="model == null and brand != null"> AND m.brand_id = #{brand} </if>
+            <if test="request.model != null and !request.model.isEmpty()">
+                AND a.model_id IN
+                <foreach item="mid" collection="request.model" separator="," open="(" close=")">
+                     #{mid}
+                </foreach>
+            </if>
+            <if test="request.model == null and request.brand != null">
+                AND m.brand_id =#{request.brand}
+            </if>
 
-            <if test="used != null"> AND a.used = #{used} </if>
-            <if test="city != null"> AND a.city_id = #{city} </if>
-            <if test="priceMin != null"> AND a.price >= #{priceMin} </if>
-            <if test="priceMax != null"> AND #{priceMax} >= a.price </if>
-            <if test="currency != null"> AND a.currency_id = #{currency} </if>
-            <if test="banType != null"> AND a.ban_type_id = #{banType} </if>
-            <if test="yearMin != null"> AND a.prod_year >= #{yearMin} </if>
-            <if test="yearMax != null"> AND #{yearMax} >= a.prod_year </if>
-            <if test="colour != null"> AND a.colour_id = #{colour} </if>
-            <if test="fuelType != null"> AND a.fuel_type_id = #{fuelType} </if>
-            <if test="gearBoxType != null"> AND a.gear_box_type_id = #{gearBoxType} </if>
-            <if test="gearType != null"> AND a.gear_type_id = #{gearType} </if>
-            <if test="enginePowerMin != null"> AND a.engine_power >= #{enginePowerMin} </if>
-            <if test="enginePowerMax != null"> AND #{enginePowerMax} >= a.engine_power </if>
-            <if test="horsePowerMin != null"> AND a.engine_horse_power >= #{horsePowerMin} </if>
-            <if test="horsePowerMax != null"> AND #{horsePowerMax} >= a.engine_horse_power </if>
-            <if test="destinationMin != null"> AND a.destination >= #{destinationMin} </if>
-            <if test="destinationMax != null"> AND #{destinationMax} >= a.destination </if>
-            <if test="destinationMeasure != null"> AND a.dest_measure_id = #{destinationMeasure} </if>
-            <if test="numberOfSeats != null"> AND a.number_of_seats = #{numberOfSeats} </if>
+            <if test="request.used != null">AND a.used = #{request.used}</if>
+            <if test="request.city != null and !request.city.isEmpty()">
+                AND a.city_id IN
+                <foreach item="cid" collection="request.city" separator="," open="(" close=")">
+                    #{cid}
+                </foreach>
+            </if>
+            <if test="request.priceMin != null">AND a.price >= #{request.priceMin}</if>
+            <if test="request.priceMax != null">AND #{request.priceMax} >= a.price</if>
+            <if test="request.currency != null">AND a.currency_id = #{request.currency}</if>
+            <if test="request.banType != null and !request.banType.isEmpty()">
+                AND a.ban_type_id IN
+                <foreach item="btid" collection="request.banType" separator="," open="(" close=")">
+                    #{btid}
+                </foreach>
+            </if>
+            <if test="request.yearMin != null">AND a.prod_year >= #{request.yearMin}</if>
+            <if test="request.yearMax != null">AND #{request.yearMax} >= a.prod_year</if>
+            <if test="request.colour != null and !request.colour.isEmpty()">
+                AND a.colour_id IN
+                <foreach item="coid" collection="request.colour" separator="," open="(" close=")">
+                    #{coid}
+                </foreach>
+            </if>
+            <if test="request.fuelType != null and !request.fuelType.isEmpty()">
+                AND a.fuel_type_id IN
+                <foreach item="ftid" collection="request.fuelType" separator="," open="(" close=")">
+                    #{ftid}
+                </foreach>
+            </if>
+            <if test="request.gearBoxType != null and !request.gearBoxType.isEmpty()">
+                AND a.gear_box_type_id IN
+                <foreach item="gbtid" collection="request.gearBoxType" separator="," open="(" close=")">
+                    #{gbtid}
+                </foreach>
+            </if>
+            <if test="request.gearType != null and !request.gearType.isEmpty()">
+                AND a.gear_type_id IN
+                <foreach item="gtid" collection="request.gearType" separator="," open="(" close=")">
+                    #{gtid}
+                </foreach>
+            </if>
+            <if test="request.enginePowerMin != null">
+                AND a.engine_power >= #{request.enginePowerMin}
+            </if>
+            <if test="request.enginePowerMax != null">
+                AND #{request.enginePowerMax} >= a.engine_power
+            </if>
+            <if test="request.horsePowerMin != null">
+                AND a.engine_horse_power >= #{request.horsePowerMin}
+            </if>
+            <if test="request.horsePowerMax != null">
+                AND #{request.horsePowerMax} >= a.engine_horse_power
+            </if>
+            <if test="request.destinationMin != null">
+                AND a.destination >= #{request.destinationMin}
+            </if>
+            <if test="request.destinationMax != null">
+                AND #{request.destinationMax} >= a.destination
+            </if>
+            <if test="request.destinationMeasure != null">
+                AND a.dest_measure_id = #{request.destinationMeasure}
+            </if>
+            <if test="request.numberOfSeats != null and !request.numberOfSeats.isEmpty()">
+                AND a.number_of_seats IN
+                <foreach item="nosid" collection="request.numberOfSeats" separator="," open="(" close=")">
+                    #{nosid}
+                </foreach>
+            </if>
         </where>
 
         ORDER BY a.ttl
-        DESC LIMIT #{size}
-        OFFSET #{page};
+        DESC LIMIT #{limit}
+        OFFSET #{from};
     </select>
 
     <select id="findCountOfAdsByAdsLink" resultType="Integer">

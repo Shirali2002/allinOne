@@ -9,11 +9,14 @@ import com.all.in.one.allinone.model.mybatis.DestinationMeasure;
 import com.all.in.one.allinone.model.mybatis.FuelType;
 import com.all.in.one.allinone.model.mybatis.GearBoxType;
 import com.all.in.one.allinone.model.mybatis.GearType;
+import com.all.in.one.allinone.model.mybatis.Model;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class GetDashboardFieldsResponse {
 
     private List<BanType> banTypes;
@@ -25,5 +28,6 @@ public class GetDashboardFieldsResponse {
     private List<GearBoxType> gearBoxTypes;
     private List<GearType> gearTypes;
     private List<Brand> brands;
+    private List<Model> models;
 
 }

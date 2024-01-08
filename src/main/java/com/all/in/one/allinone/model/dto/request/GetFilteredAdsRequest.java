@@ -2,23 +2,25 @@ package com.all.in.one.allinone.model.dto.request;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class GetFilteredAdsRequest {
 
     private Integer brand;
-    private Integer model;
+    private List<Integer> model;
     private Boolean used;
-    private Integer city;
+    private List<Integer> city;
     private Integer priceMin;
     private Integer priceMax;
     private Integer currency;
-    private Integer banType;
+    private List<Integer> banType;
     private Integer yearMin;
     private Integer yearMax;
-    private Integer colour;
-    private Integer fuelType;
-    private Integer gearBoxType;
-    private Integer gearType;
+    private List<Integer> colour;
+    private List<Integer> fuelType;
+    private List<Integer> gearBoxType;
+    private List<Integer> gearType;
     private Integer enginePowerMin;
     private Integer enginePowerMax;
     private Integer horsePowerMin;
@@ -26,9 +28,6 @@ public class GetFilteredAdsRequest {
     private Integer destinationMin;
     private Integer destinationMax;
     private Integer destinationMeasure;
-    private Integer numberOfSeats;
-
-    private Integer page;
-    private Integer size;
+    private List<Integer> numberOfSeats;
 
 }

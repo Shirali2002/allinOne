@@ -1,4 +1,4 @@
-package com.all.in.one.allinone.service.impl;
+package com.all.in.one.allinone.service.auth;
 
 import com.all.in.one.allinone.mapper.modelMapper.UserModelMapper;
 import com.all.in.one.allinone.model.dto.request.LoginRequest;
@@ -8,8 +8,7 @@ import com.all.in.one.allinone.model.error.exception.DuplicateUsernameException;
 import com.all.in.one.allinone.model.error.exception.PasswordsNotMatchedException;
 import com.all.in.one.allinone.model.mybatis.User;
 import com.all.in.one.allinone.security.JwtProvider;
-import com.all.in.one.allinone.service.AuthService;
-import com.all.in.one.allinone.service.UserService;
+import com.all.in.one.allinone.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

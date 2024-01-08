@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.all.in.one.allinone.mapper.mybatisMapper.UtilityMapper">
+<mapper namespace="com.all.in.one.allinone.mapper.mybatisMapper.MainFieldsMapper">
 
     <!-- ++++++++++++++++++++++++++Currency+++++++++++++++++++++++++++++ -->
 
@@ -11,6 +11,19 @@
         VALUES (#{currencyCode},
                 #{name, jdbcType=NVARCHAR});
     </insert>
+
+    <insert id="insertCurrencies" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO allinonedb.tb_currency (CURRENCY_CODE, NAME)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.currencyCode},
+            #{item.name, jdbcType=NVARCHAR})
+        </foreach>
+    </insert>
+
+    <delete id="truncateCurrencies">
+        TRUNCATE TABLE allinonedb.tb_currency;
+    </delete>
 
     <select id="findAllCurrency" resultType="Currency">
         SELECT <include refid="currencyBaseColumns"/>
@@ -31,10 +44,23 @@
                 #{name, jdbcType=NVARCHAR});
     </insert>
 
+    <insert id="insertBanTypes" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO allinonedb.tb_ban_type (BAN_TYPE_CODE, NAME)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.banTypeCode},
+            #{item.name, jdbcType=NVARCHAR})
+        </foreach>
+    </insert>
+
     <select id="findAllBanType" resultType="BanType">
         SELECT <include refid="banTypeBaseColumns"/>
         FROM allinonedb.tb_ban_type bt;
     </select>
+
+    <delete id="truncateBanTypes">
+        TRUNCATE TABLE allinonedb.tb_ban_type;
+    </delete>
 
     <sql id="banTypeBaseColumns">
         bt.id,
@@ -50,7 +76,20 @@
                 #{name, jdbcType=NVARCHAR});
     </insert>
 
-    <select id="findAllBrand" resultType="Brand">
+    <insert id="insertBrands" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO allinonedb.tb_brand (BRAND_CODE, NAME)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.brandCode},
+            #{item.name, jdbcType=NVARCHAR})
+        </foreach>
+    </insert>
+
+    <delete id="truncateBrands">
+        TRUNCATE TABLE allinonedb.tb_brand;
+    </delete>
+
+    <select id="findAllBrands" resultType="Brand">
         SELECT <include refid="brandBaseColumns"/>
         FROM allinonedb.tb_brand b;
     </select>
@@ -68,6 +107,19 @@
         VALUES (#{cityCode},
                 #{name, jdbcType=NVARCHAR});
     </insert>
+
+    <insert id="insertCities" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO allinonedb.tb_city (CITY_CODE, NAME)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.cityCode},
+            #{item.name, jdbcType=NVARCHAR})
+        </foreach>
+    </insert>
+
+    <delete id="truncateCities">
+        TRUNCATE TABLE allinonedb.tb_city;
+    </delete>
 
     <select id="findAllCity" resultType="City">
         SELECT <include refid="cityBaseColumns"/>
@@ -88,6 +140,19 @@
                 #{name, jdbcType=NVARCHAR});
     </insert>
 
+    <insert id="insertColours" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO allinonedb.tb_colour (COLOUR_CODE, NAME)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.colourCode},
+            #{item.name, jdbcType=NVARCHAR})
+        </foreach>
+    </insert>
+
+    <delete id="truncateColours">
+        TRUNCATE TABLE allinonedb.tb_colour;
+    </delete>
+
     <select id="findAllColour" resultType="Colour">
         SELECT <include refid="colourBaseColumns"/>
         FROM allinonedb.tb_colour co;
@@ -106,6 +171,19 @@
         VALUES (#{destCode},
                 #{name, jdbcType=NVARCHAR});
     </insert>
+
+    <insert id="insertDestinationMeasures" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO allinonedb.tb_dest_measure (DEST_CODE, NAME)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.destCode},
+            #{item.name, jdbcType=NVARCHAR})
+        </foreach>
+    </insert>
+
+    <delete id="truncateDestinationMeasures">
+        TRUNCATE TABLE allinonedb.tb_dest_measure;
+    </delete>
 
     <select id="findAllDestinationMeasure" resultType="DestinationMeasure">
         SELECT <include refid="destinationMeasureBaseColumns"/>
@@ -126,6 +204,19 @@
                 #{name, jdbcType=NVARCHAR});
     </insert>
 
+    <insert id="insertFuelTypes" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO allinonedb.tb_fuel_type (FUEL_TYPE_CODE, NAME)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.fuelTypeCode},
+            #{item.name, jdbcType=NVARCHAR})
+        </foreach>
+    </insert>
+
+    <delete id="truncateFuelTypes">
+        TRUNCATE TABLE allinonedb.tb_fuel_type;
+    </delete>
+
     <select id="findAllFuelType" resultType="FuelType">
         SELECT <include refid="fuelTypeBaseColumns"/>
         FROM allinonedb.tb_fuel_type ft;
@@ -145,6 +236,19 @@
                 #{name, jdbcType=NVARCHAR});
     </insert>
 
+    <insert id="insertGearBoxTypes" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO allinonedb.tb_gear_box_type (GEAR_BOX_CODE, NAME)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.gearBoxCode},
+            #{item.name, jdbcType=NVARCHAR})
+        </foreach>
+    </insert>
+
+    <delete id="truncateGearBoxTypes">
+        TRUNCATE TABLE allinonedb.tb_gear_box_type;
+    </delete>
+
     <select id="findAllGearBoxType" resultType="GearBoxType">
         SELECT <include refid="gearBoxTypeBaseColumns"/>
         FROM allinonedb.tb_gear_box_type gbt;
@@ -156,13 +260,26 @@
         gbt.name
     </sql>
 
-    <!-- +++++++++++++++++++++++FuelType+++++++++++++++++++++++++++++ -->
+    <!-- +++++++++++++++++++++++GearType+++++++++++++++++++++++++++++ -->
 
     <insert id="insertGearType" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
         INSERT INTO allinonedb.tb_gear_type (GEAR_TYPE_CODE, NAME)
         VALUES (#{gearTypeCode},
                 #{name, jdbcType=NVARCHAR});
     </insert>
+
+    <insert id="insertGearTypes" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO allinonedb.tb_gear_type (GEAR_TYPE_CODE, NAME)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.gearTypeCode},
+            #{item.name, jdbcType=NVARCHAR})
+        </foreach>
+    </insert>
+
+    <delete id="truncateGearTypes">
+        TRUNCATE TABLE allinonedb.tb_gear_type;
+    </delete>
 
     <select id="findAllGearType" resultType="GearType">
         SELECT <include refid="gearTypeBaseColumns"/>
@@ -183,6 +300,20 @@
                 #{name, jdbcType=NVARCHAR},
                 #{brandCode});
     </insert>
+
+    <insert id="insertModels" parameterType="java.util.List" useGeneratedKeys="true">
+        INSERT INTO allinonedb.tb_model (MODEL_CODE, NAME, BRAND_ID)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.modelCode},
+            #{item.name, jdbcType=NVARCHAR},
+            #{item.brandCode})
+        </foreach>
+    </insert>
+
+    <delete id="truncateModels">
+        TRUNCATE TABLE allinonedb.tb_model;
+    </delete>
 
     <select id="findAllModel" resultType="Model">
         SELECT <include refid="modelBaseColumns"/>

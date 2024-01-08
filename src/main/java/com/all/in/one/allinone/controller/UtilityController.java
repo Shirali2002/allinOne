@@ -1,15 +1,12 @@
 package com.all.in.one.allinone.controller;
 
 import com.all.in.one.allinone.model.dto.response.GetDashboardFieldsResponse;
-import com.all.in.one.allinone.model.dto.response.GetDashboardModelsResponse;
-import com.all.in.one.allinone.service.UtilityService;
+import com.all.in.one.allinone.service.utility.UtilityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,47 +17,24 @@ public class UtilityController {
 
     private final UtilityService utilityService;
 
-//    @PostMapping("fill")
-    public void dbFill() {
-        utilityService.dbFill();
-    }
-
-//    @PostMapping("fill/model")
-    public void dbFillModel() {
-        utilityService.dbFillModel();
-    }
-
-//    @PostMapping("fill/brand")
-    public void dbFillBrand() {
-        utilityService.dbFillBrand();
-    }
-
-//    @PostMapping("fill/ads")
-    public void dbFillAds() {
-        utilityService.dbFillAds();
-    }
-
     @GetMapping("dashboard/fields")
     public GetDashboardFieldsResponse getDashboardFields() {
         return utilityService.getDashboardFields();
     }
 
+    @GetMapping("dashboard/fields-without-model")
+    public GetDashboardFieldsResponse getDashboardFieldsWithoutModels() {
+        return utilityService.getDashboardFieldsWithoutModels();
+    }
+
     @GetMapping("dashboard/models")
-    public GetDashboardModelsResponse getDashboardModels() {
+    public GetDashboardFieldsResponse getDashboardModels() {
         return utilityService.getDashboardModels();
     }
 
     @GetMapping("dashboard/models/{brandId}")
-    public GetDashboardModelsResponse getDashboardModels(@PathVariable Integer brandId) {
+    public GetDashboardFieldsResponse getDashboardModels(@PathVariable Integer brandId) {
         return utilityService.getDashboardModels(brandId);
-    }
-
-//    @PostMapping("mail")
-    public void sendRegistrationOtpMail(@RequestParam String email,
-                                        @RequestParam String name,
-                                        @RequestParam String surname,
-                                        @RequestParam Integer otpCode) {
-        utilityService.sendRegistrationOtpMail(email, name, surname, otpCode);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.all.in.one.allinone.config;
 
-import com.all.in.one.allinone.service.UserService;
+import com.all.in.one.allinone.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
